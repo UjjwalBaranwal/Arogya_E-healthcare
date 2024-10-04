@@ -44,3 +44,19 @@ exports.signUp = catchAsync(async (req, res, next) => {
 
   createAndSendToken(newPatient, 201, res);
 });
+
+exports.login = catchAsync(async (req, res, next) => {
+  const { email, password } = req.body;
+  if (!email || !password)
+    return next(new AppError("pls provide valid email or password", 400));
+  const patient = await Patient.find({ email }).select("+password");
+
+  console.log(patient);
+  if (
+    !patient ||
+    !(await patient.correctPassword(password, patient.password))
+  ) {
+    return next(new AppError("Email id or password is incorrect"));
+  }
+  createAndSendToken(patient, 200, res);
+});
