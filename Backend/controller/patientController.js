@@ -37,8 +37,8 @@ exports.signUp = catchAsync(async (req, res, next) => {
   const newPatient = await Patient.create({
     name: req.body.name,
     email: req.body.email,
-    password: req.body.password,
     phoneNumber: req.body.phoneNumber,
+    password: req.body.password,
     gender: req.body.gender,
   });
 
