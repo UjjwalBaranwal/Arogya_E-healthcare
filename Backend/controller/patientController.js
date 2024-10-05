@@ -60,3 +60,28 @@ exports.login = catchAsync(async (req, res, next) => {
   }
   createAndSendToken(patient, 200, res);
 });
+
+exports.getAll = catchAsync(async (req, res, next) => {
+  const allData = await Patient.find();
+  res.status(200).json({
+    status: "success",
+    token,
+    data: {
+      allData,
+    },
+  });
+});
+
+exports.getOne = catchAsync(async (req, res, next) => {
+  console.log(req.params);
+  const patient = await Patient.findById(req.params.id);
+  if (!patient) {
+    return next(new AppError("No patient find with the search id"));
+  }
+  res.status(200).json({
+    status: "success",
+    data: {
+      data: patient,
+    },
+  });
+});

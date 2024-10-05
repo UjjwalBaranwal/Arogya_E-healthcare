@@ -1,9 +1,15 @@
+/* eslint-disable spaced-comment */
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-console */
+/* eslint-disable new-cap */
+/* eslint-disable prettier/prettier */
 const dotenv = require("dotenv");
 
 dotenv.config({
   path: "./config.env",
 });
 const mongoose = require("mongoose");
+
 //////////////////////////////////////////////
 ////// catching uncaught exception
 process.on("uncaughtException", (err) => {
@@ -14,7 +20,6 @@ process.on("uncaughtException", (err) => {
 
 const app = require("./app");
 
-// const DB = process.env.DATABASE;
 const DB = process.env.DATABASE.replace(
   "<PASSWORD>",
   process.env.DATABASE_PASSWORD
@@ -22,16 +27,12 @@ const DB = process.env.DATABASE.replace(
 mongoose
   .connect(DB, {
     useNewUrlParser: true,
+
     useUnifiedTopology: true,
   })
   .then(() => {
     // console.log(con.connections);
     console.log("connection is stabliished");
-  })
-  .catch((e) => {
-    console.log("Error happeing");
-
-    console.log(e);
   });
 
 //created a serverr
