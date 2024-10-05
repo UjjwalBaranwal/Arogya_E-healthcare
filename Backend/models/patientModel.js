@@ -63,7 +63,7 @@ patientSchema.pre(/^find/, function (next) {
   this.find({ active: { $ne: false } });
   next();
 });
-userSchema.methods.correctPassword = async function (
+patientSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword
 ) {
