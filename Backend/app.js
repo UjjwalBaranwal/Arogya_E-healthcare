@@ -5,13 +5,18 @@ const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 const app = express();
 app.use(express.json());
-
+app.use(morgan())
 // All router import
 const patientRouter = require("./routes/patientRoute");
 const doctorRouter=require("./routes/doctorRoute");
 const adminRouter=require("./routes/adminRouter");
+const AppError = require("./utils/appError");
 // Route setting
 app.use("/api/v1/patient", patientRouter);
 app.use("/api/v1/doctor",doctorRouter);
 app.use("/api/v1/admin",adminRouter);
+app.all('*',(req,res,next)=>{
+    next(new AppError('No route found'))
+})
+
 module.exports = app;
