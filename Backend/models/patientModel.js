@@ -68,6 +68,8 @@ patientSchema.methods.correctPassword = async function (
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
+
 const Patient = mongoose.model("Patient", patientSchema);
+
 
 module.exports = Patient;
