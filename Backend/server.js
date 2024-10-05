@@ -9,12 +9,6 @@ dotenv.config({
   path: "./config.env",
 });
 const mongoose = require("mongoose");
-<<<<<<< HEAD
-
-//////////////////////////////////////////////
-////// catching uncaught exception
-=======
->>>>>>> refs/remotes/origin/main
 process.on("uncaughtException", (err) => {
   console.log("uncaught exception .......... shutiing down 💣💣💣💣💣💣");
   console.log(err);
@@ -25,7 +19,7 @@ const app = require("./app");
 
 const DB = process.env.DATABASE.replace(
   "<PASSWORD>",
-  process.env.DATABASE_PASSWORD  
+  process.env.DATABASE_PASSWORD
 );
 mongoose
   .connect(DB, {
