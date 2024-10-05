@@ -61,13 +61,15 @@ patientSchema.pre(/^find/, function (next) {
   this.find({ active: { $ne: false } });
   next();
 });
-userSchema.methods.correctPassword = async function (
+patientSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
+
 const Patient = mongoose.model("Patient", patientSchema);
+
 
 module.exports = Patient;

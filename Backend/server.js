@@ -3,8 +3,6 @@ dotenv.config({
   path: "./config.env",
 });
 const mongoose = require("mongoose");
-//////////////////////////////////////////////
-////// catching uncaught exception
 process.on("uncaughtException", (err) => {
   console.log("uncaught exception .......... shutiing down 💣💣💣💣💣💣");
   console.log(err);
@@ -13,18 +11,17 @@ process.on("uncaughtException", (err) => {
 
 const app = require("./app");
 
-const DB = process.env.DATABASE;
-// const DB = process.env.DATABASE.replace(
-//   "<PASSWORD>",
-//   process.env.DATABASE_PASSWORD
-// );
+// const DB = process.env.DATABASE;
+const DB = process.env.DATABASE.replace(
+  "<PASSWORD>",
+  process.env.DATABASE_PASSWORD  
+);
 mongoose
   .connect(DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
-    // console.log(con.connections);
     console.log("connection is stabliished");
   });
 
