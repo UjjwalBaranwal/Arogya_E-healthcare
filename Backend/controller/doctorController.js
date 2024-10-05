@@ -48,12 +48,48 @@ exports.signup = catchAsync(async(req,res,next)=>{
         phoneNumber:req.body.phoneNumber,
         website:req.body.website,
         address:req.body.address,
+        location:req.body.location,
         specialization:req.body.specialization,
         experience:req.body.experience,
         consultationFee:req.body.consultationFee,
         timing:req.body.timing,
         status:req.body.status,
+        ratingsAverage:req.body.ratingsAverage,
+        ratingQuantity:req.body.ratingQuantity,
     });
+    createAndSendToken(newDoctor,201,res);
+
 })
+
+exports.login=catchAsync(async(req,res,next)=>{
+  console.log(req.body);
+  const {email,password}=req.body;
+  if(!email || !password){
+    return new AppError("Please enter the correct credentials");
+  }
+
+  // here an error was occures because of the find and findOne Method in this project
+  const doctor= await(Doctor.findOne({email})).select("+password");
+  console.log(doctor);
+  if(!doctor || !(await doctor.correctPassword(password,doctor.password))){
+    return next(new AppError("Email id or Password is incorrect"));
+  };
+  createAndSendToken(doctor,200,res);
+
+})
+
+exports.logout=(req,res)=>{
+  res.cookie("jwt","loggedout",{
+    expires:new Date(Date.now()+10 *1000),
+    httpsOnly:true,
+  })
+
+  res.status(200).json({
+    status:"success",
+    message:"Logged out successfully",
+  })
+}
+
+
 
   

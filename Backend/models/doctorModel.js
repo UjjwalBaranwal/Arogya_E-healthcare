@@ -28,18 +28,6 @@ const doctorSchema = new mongoose.Schema({
     type: String,
     default: "doctor",
   },
-  confirmPassword: {
-    type: String,
-    required: [true, "pls entered the same password as the password"],
-    minlength: 8,
-    validate: {
-      //// this only work on create and save
-      validator: function (val) {
-        return this.password === val;
-      },
-      message: "Passwords are not the same",
-    },
-  },
   phoneNumber: {
     type: Number,
     required: [true, "pls entered your phone number"],
@@ -50,6 +38,17 @@ const doctorSchema = new mongoose.Schema({
   address: {
     type: String,
     required: [true, "please entered your address"],
+  },
+  location: {
+    type: {
+      type: String,    // Specifies the type of GeoJSON object
+      enum: ['Point'], // Must be 'Point' for a Point type
+      required: true
+    },
+    coordinates: {
+      type: [Number],   // Array of numbers [longitude, latitude]
+      required: true
+    }
   },
   specialization: {
     type: String,
@@ -81,6 +80,17 @@ const doctorSchema = new mongoose.Schema({
   status: {
     type: String,
     default: "pending",
+  },
+  ratingsAverage: {
+    type: Number,
+    default: 4.5,
+    min: [1, "rating should of atleast 1.0"],
+    max: [5, "rating should of atmost 5.0"],
+    set: (val) => Math.round(val * 10) / 10, // 4.666666-->46.666->47->4.7
+  },
+  ratingsQuantity: {
+    type: Number,
+    default: 0,
   },
 });
 

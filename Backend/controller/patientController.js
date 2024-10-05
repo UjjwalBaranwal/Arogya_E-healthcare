@@ -60,3 +60,18 @@ exports.login = catchAsync(async (req, res, next) => {
   }
   createAndSendToken(patient, 200, res);
 });
+
+// Log out functionality in the patient section
+exports.logout=(req,res)=>{
+  res.cookie("jwt","loggedout",{
+    expires:new Date(Date.now()+ 10*100),
+    httpsOnly:true,
+  })
+
+  res.status(200).json({
+    status:"success",
+    message:"Logged Out successfully",
+  })
+}
+
+

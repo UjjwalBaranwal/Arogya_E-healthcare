@@ -1,4 +1,5 @@
 const dotenv = require("dotenv");
+
 dotenv.config({
   path: "./config.env",
 });
@@ -23,6 +24,11 @@ mongoose
   })
   .then(() => {
     console.log("connection is stabliished");
+  })
+  .catch((e) => {
+    console.log("Error happeing");
+
+    console.log(e);
   });
 
 //created a serverr
