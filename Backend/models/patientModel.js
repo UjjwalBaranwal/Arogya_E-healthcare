@@ -52,8 +52,6 @@ patientSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   // hashing the password with the cpy cost 12
   this.password = await bcrypt.hash(this.password, 12);
-  // delete the password confirm field
-  this.confirmPassword = undefined;
   next();
 });
 
