@@ -62,13 +62,10 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.getAll = catchAsync(async (req, res, next) => {
-  const allData = await Patient.find();
+  const data = await Patient.find();
   res.status(200).json({
     status: "success",
-    token,
-    data: {
-      allData,
-    },
+    data
   });
 });
 

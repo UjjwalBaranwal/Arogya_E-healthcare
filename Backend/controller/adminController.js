@@ -57,3 +57,19 @@ exports.login=catchAsync(async(req,res,next)=>{
     }
     createAndSendToken(admin,201,res);
 })
+
+exports.getAllnotification=catchAsync(async(req,res,next)=>{
+
+  const data = await Admin.findOne({isAdmin:true});
+  if(!data){
+    return res.status(404).json({
+      type:"error",
+      message:"Admin Not Found",
+    })
+  }
+  const notification=data.notification;
+  res.status(201).json({
+    type:"success",
+    data:notification,
+  })
+})

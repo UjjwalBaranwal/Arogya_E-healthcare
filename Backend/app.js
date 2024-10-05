@@ -14,5 +14,4 @@ const adminRouter=require("./routes/adminRouter");
 app.use("/api/v1/patient", patientRouter);
 app.use("/api/v1/doctor",doctorRouter);
 app.use("/api/v1/admin",adminRouter);
-////////////////////////////////////
 module.exports = app;

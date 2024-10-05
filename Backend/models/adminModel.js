@@ -20,6 +20,14 @@ const adminSchema = new mongoose.Schema({
     },
     role: {
         type: String,
+    },
+    notification:{
+        type:Array,
+        default:[],
+    },
+    isAdmin:{
+        type:Boolean,
+        default:true,
     }
 
 })
