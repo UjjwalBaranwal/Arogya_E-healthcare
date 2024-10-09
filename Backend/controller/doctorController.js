@@ -20,7 +20,7 @@ const createAndSendToken = (user, statusCode, res) => {
     ),
     httpOnly: true,
   };
-  ///// remove the  user password from the output
+
   user.password = undefined;
   res.cookie("jwt", token, cookiOption);
   res.status(statusCode).json({
@@ -49,11 +49,9 @@ exports.signup = catchAsync(async (req, res, next) => {
     consultationFee: req.body.consultationFee,
     timing: req.body.timing,
   });
-  
 
   createAndSendToken(newDoctor, 201, res);
-
-})
+});
 
 exports.login = catchAsync(async (req, res, next) => {
   console.log(req.body);
@@ -75,13 +73,13 @@ exports.logout = (req, res) => {
   res.cookie("jwt", "loggedout", {
     expires: new Date(Date.now() + 10 * 1000),
     httpsOnly: true,
-  })
+  });
 
   res.status(200).json({
     status: "success",
     message: "Logged out successfully",
-  })
-}
+  });
+};
 
 exports.getAll = catchAsync(async (req, res, next) => {
   const data = await Doctor.find();
@@ -127,7 +125,7 @@ exports.getDoctorWithin = catchAsync(async (req, res, next) => {
       },
     },
   });
-  if(!data)return next(new AppError("no doctor found within the range"))
+  if (!data) return next(new AppError("no doctor found within the range"));
   console.log(data);
   res.status(200).json({
     status: "success",

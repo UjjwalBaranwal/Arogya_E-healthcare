@@ -28,16 +28,16 @@ const doctorSchema = new mongoose.Schema({
     minlength: 8,
     select: false,
   },
-  confirmPassword:{
+  confirmPassword: {
     type: String,
-    required: [true, 'pls entered the same password as the password'],
+    required: [true, "pls entered the same password as the password"],
     minlength: 8,
     validate: {
       //// this only work on create and save
       validator: function (val) {
         return this.password === val;
       },
-      message: 'Passwords are not the same',
+      message: "Passwords are not the same",
     },
   },
   gender: {
@@ -49,7 +49,7 @@ const doctorSchema = new mongoose.Schema({
     type: String,
     default: "doctor",
   },
-  
+
   website: {
     type: String,
   },
@@ -59,15 +59,15 @@ const doctorSchema = new mongoose.Schema({
   },
   location: {
     type: {
-      type: String,    // Specifies the type of GeoJSON object
-      enum: ['Point'], // Must be 'Point' for a Point type
+      type: String, // Specifies the type of GeoJSON object
+      enum: ["Point"], // Must be 'Point' for a Point type
       required: true,
-      default:'Point'
+      default: "Point",
     },
     coordinates: {
-      type: [Number],   // Array of numbers [longitude, latitude]
-      required: true
-    }
+      type: [Number], // Array of numbers [longitude, latitude]
+      required: true,
+    },
   },
   specialization: {
     type: String,
@@ -93,14 +93,14 @@ const doctorSchema = new mongoose.Schema({
     required: [true, "enter your consultation fee"],
   },
   timing: {
-    open:{
-      type:String ,// time in format HH:MM 09:00 
-      required:[true,"Please enter the opening time"]
+    open: {
+      type: String, // time in format HH:MM 09:00
+      required: [true, "Please enter the opening time"],
     },
-    close:{
-      type:String,
-      required:[true,'Please enter the closing time']
-    }
+    close: {
+      type: String,
+      required: [true, "Please enter the closing time"],
+    },
   },
   status: {
     type: String,
