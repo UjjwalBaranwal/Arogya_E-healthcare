@@ -39,32 +39,6 @@ exports.signup = catchAsync(async (req, res, next) => {
     photo: req.body.photo,
     phoneNumber: req.body.phoneNumber,
     password: req.body.password,
-    role: req.body.role,
-    confirmPassword: req.body.confirmPassword,
-    gender: req.body.gender,
-    phoneNumber: req.body.phoneNumber,
-    website: req.body.website,
-    address: req.body.address,
-    location: req.body.location,
-    specialization: req.body.specialization,
-    experience: req.body.experience,
-    consultationFee: req.body.consultationFee,
-    timing: req.body.timing,
-    status: req.body.status,
-    ratingsAverage: req.body.ratingsAverage,
-    ratingQuantity: req.body.ratingQuantity,
-  });
-  createAndSendToken(newDoctor, 201, res);
-});
-
-
-exports.signup = catchAsync(async (req, res, next) => {
-  const newDoctor = await Doctor.create({
-    name: req.body.name,
-    email: req.body.email,
-    photo: req.body.photo,
-    phoneNumber: req.body.phoneNumber,
-    password: req.body.password,
     confirmPassword: req.body.confirmPassword,
     gender: req.body.gender,
     website: req.body.website,
@@ -74,25 +48,8 @@ exports.signup = catchAsync(async (req, res, next) => {
     experience: req.body.experience,
     consultationFee: req.body.consultationFee,
     timing: req.body.timing,
-    status: req.body.status,
-    ratingsAverage: req.body.ratingsAverage,
-    ratingQuantity: req.body.ratingQuantity,
   });
-  const adminUser = await Admin.findOne({isAdmin: true });
-  if (adminUser) {
-    const notification = adminUser.notification;
-    notification.push({
-      type: "apply-doctor-request",
-      message: `${newDoctor.name} Has applied as a doctor for serving`,
-      data: {
-        doctorId: newDoctor._id,
-        newDoctor,
-      }
-    })
-    await adminUser.save();
-  } else {
-    console.log("Admin is not found ");
-  }
+  
 
   createAndSendToken(newDoctor, 201, res);
 

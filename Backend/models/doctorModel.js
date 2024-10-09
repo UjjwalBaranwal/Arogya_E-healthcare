@@ -18,6 +18,10 @@ const doctorSchema = new mongoose.Schema({
     validate: [validator.isEmail, "pls entered valid email"],
   },
   photo: String,
+  phoneNumber: {
+    type: Number,
+    required: [true, "pls entered your phone number"],
+  },
   password: {
     type: String,
     required: [true, "pls entered the password "],
@@ -45,10 +49,7 @@ const doctorSchema = new mongoose.Schema({
     type: String,
     default: "doctor",
   },
-  phoneNumber: {
-    type: Number,
-    required: [true, "pls entered your phone number"],
-  },
+  
   website: {
     type: String,
   },
@@ -60,7 +61,8 @@ const doctorSchema = new mongoose.Schema({
     type: {
       type: String,    // Specifies the type of GeoJSON object
       enum: ['Point'], // Must be 'Point' for a Point type
-      required: true
+      required: true,
+      default:'Point'
     },
     coordinates: {
       type: [Number],   // Array of numbers [longitude, latitude]
