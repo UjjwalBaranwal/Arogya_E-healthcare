@@ -18,20 +18,38 @@ const doctorSchema = new mongoose.Schema({
     validate: [validator.isEmail, "pls entered valid email"],
   },
   photo: String,
+  phoneNumber: {
+    type: Number,
+    required: [true, "pls entered your phone number"],
+  },
   password: {
     type: String,
     required: [true, "pls entered the password "],
     minlength: 8,
     select: false,
   },
+  confirmPassword: {
+    type: String,
+    required: [true, "pls entered the same password as the password"],
+    minlength: 8,
+    validate: {
+      //// this only work on create and save
+      validator: function (val) {
+        return this.password === val;
+      },
+      message: "Passwords are not the same",
+    },
+  },
+  gender: {
+    type: String,
+    required: true,
+    enum: ["male", "female"],
+  },
   role: {
     type: String,
     default: "doctor",
   },
-  phoneNumber: {
-    type: Number,
-    required: [true, "pls entered your phone number"],
-  },
+
   website: {
     type: String,
   },
@@ -44,6 +62,7 @@ const doctorSchema = new mongoose.Schema({
       type: String, // Specifies the type of GeoJSON object
       enum: ["Point"], // Must be 'Point' for a Point type
       required: true,
+      default: "Point",
     },
     coordinates: {
       type: [Number], // Array of numbers [longitude, latitude]
@@ -74,8 +93,14 @@ const doctorSchema = new mongoose.Schema({
     required: [true, "enter your consultation fee"],
   },
   timing: {
-    type: Object,
-    required: [true, "enter your working hrs"],
+    open: {
+      type: String, // time in format HH:MM 09:00
+      required: [true, "Please enter the opening time"],
+    },
+    close: {
+      type: String,
+      required: [true, "Please enter the closing time"],
+    },
   },
   status: {
     type: String,
