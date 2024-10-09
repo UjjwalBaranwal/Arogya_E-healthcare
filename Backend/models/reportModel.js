@@ -22,7 +22,17 @@ const medicalReportSchema = new mongoose.Schema({
         instructions: { type: String },
         prescribedBy: { type: String, required: true },
         datePrescribed: { type: Date, default: Date.now }
-    }]
+    }],
+    patientId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Patient',
+        required:[true,'enter the patient id']
+    },
+    doctorId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Doctor',
+        required:[true,'enter the doctor id']
+    },
 });
 
 
