@@ -41,14 +41,14 @@ const doctorSchema = new mongoose.Schema({
   },
   location: {
     type: {
-      type: String,    // Specifies the type of GeoJSON object
-      enum: ['Point'], // Must be 'Point' for a Point type
-      required: true
+      type: String, // Specifies the type of GeoJSON object
+      enum: ["Point"], // Must be 'Point' for a Point type
+      required: true,
     },
     coordinates: {
-      type: [Number],   // Array of numbers [longitude, latitude]
-      required: true
-    }
+      type: [Number], // Array of numbers [longitude, latitude]
+      required: true,
+    },
   },
   specialization: {
     type: String,

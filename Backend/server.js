@@ -1,14 +1,10 @@
-/* eslint-disable spaced-comment */
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-console */
-/* eslint-disable new-cap */
-/* eslint-disable prettier/prettier */
 const dotenv = require("dotenv");
 
 dotenv.config({
   path: "./config.env",
 });
 const mongoose = require("mongoose");
+mongoose.set("debug", true);
 process.on("uncaughtException", (err) => {
   console.log("uncaught exception .......... shutiing down 💣💣💣💣💣💣");
   console.log(err);
@@ -29,6 +25,9 @@ mongoose
   })
   .then(() => {
     console.log("connection is stabliished");
+  })
+  .catch((e) => {
+    console.log(e);
   });
 
 //created a serverr
