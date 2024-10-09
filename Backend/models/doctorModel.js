@@ -24,6 +24,23 @@ const doctorSchema = new mongoose.Schema({
     minlength: 8,
     select: false,
   },
+  confirmPassword:{
+    type: String,
+    required: [true, 'pls entered the same password as the password'],
+    minlength: 8,
+    validate: {
+      //// this only work on create and save
+      validator: function (val) {
+        return this.password === val;
+      },
+      message: 'Passwords are not the same',
+    },
+  },
+  gender: {
+    type: String,
+    required: true,
+    enum: ["male", "female"],
+  },
   role: {
     type: String,
     default: "doctor",
@@ -74,8 +91,14 @@ const doctorSchema = new mongoose.Schema({
     required: [true, "enter your consultation fee"],
   },
   timing: {
-    type: Object,
-    required: [true, "enter your working hrs"],
+    open:{
+      type:String ,// time in format HH:MM 09:00 
+      required:[true,"Please enter the opening time"]
+    },
+    close:{
+      type:String,
+      required:[true,'Please enter the closing time']
+    }
   },
   status: {
     type: String,

@@ -5,8 +5,6 @@ const catchAsync = require('../utils/catchAsync');
 
 exports.bookAppointment = catchAsync(async (req, res, next) => {
   const { doctorId, date, patientId, isPriority, moneyPaid } = req.body;
-
-  // Step 1: Check if the doctor exists
   const doctor = await Doctor.findById(doctorId);
   if (!doctor) {
     return next(new AppError('Doctor is not found'));
@@ -39,7 +37,7 @@ exports.bookAppointment = catchAsync(async (req, res, next) => {
   const isPatientAlreadyBooked = appointment.patient.some(p => p.patientId.toString() === patientId.toString());
 
   if (isPatientAlreadyBooked) {
-    return =next(new AppError('You already booked appointment with the doctor for this day'))
+    return next(new AppError('You already booked appointment with the doctor for this day'))
   }
 
   // Step 6: Add patient to the appointment
@@ -64,3 +62,12 @@ exports.bookAppointment = catchAsync(async (req, res, next) => {
     }
   });
 });
+
+exports.getAll=catchAsync(async(req,res,next)=>{
+    const data=await Appointment.find();
+    if(!data)return next(new AppError("No Appointment till now"));
+    res.status(201).json({
+        status:'success',
+        data
+    })
+})

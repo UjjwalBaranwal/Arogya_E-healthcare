@@ -16,7 +16,7 @@ const AppError = require("./utils/appError");
 app.use("/api/v1/patient", patientRouter);
 app.use("/api/v1/doctor",doctorRouter);
 app.use("/api/v1/admin",adminRouter);
-app.use('/api/v1/appointment',appointmentRouter)
+app.use("api/v1/appointment",appointmentRouter);
 app.all('*',(req,res,next)=>{
     next(new AppError('No route found'))
 })
