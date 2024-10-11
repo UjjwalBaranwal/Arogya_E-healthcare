@@ -1,23 +1,23 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
-import Home from './home.jsx'
-import About from './about.jsx'
-import './index.css'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App.jsx";
+import Home from "./home.jsx";
+import About from "./about.jsx";
+import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-const router= createBrowserRouter([
+const router = createBrowserRouter([
   {
-    path:'/home',
-    element:<Home/>
+    path: "/home",
+    element: <Home />,
   },
   {
-    path:"/",
-    element:<App/>
+    path: "/",
+    element: <App />,
   },
   {
-    path:'/about',
-    element:<About/>
+    path: "/about",
+    element: <About />,
   },
   // {
   //   path:'/',
@@ -31,11 +31,11 @@ const router= createBrowserRouter([
   //   path:'/',
   //   element:<Testimonials/>
   // }
-])
-createRoot(document.getElementById('root')).render(
+]);
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-   <RouterProvider router={router}>
+    <RouterProvider router={router}>
       <App />
     </RouterProvider>
-  </StrictMode>,
-)
+  </StrictMode>
+);
