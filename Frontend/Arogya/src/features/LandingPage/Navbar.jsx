@@ -23,7 +23,7 @@ function Navbar() {
               arogya_healthcare@support.com
             </div>
             <div className="flex gap-3">
-              <LiaPlaceOfWorshipSolid className=" h-8" /> address :
+              <LiaPlaceOfWorshipSolid className=" h-8" /> address : patel nagar
             </div>
           </div>
           <div className="flex gap-3 text-xl">

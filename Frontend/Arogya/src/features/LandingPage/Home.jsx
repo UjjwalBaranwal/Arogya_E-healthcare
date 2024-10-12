@@ -1,5 +1,5 @@
-function Hoime() {
+function Home() {
   return <div className="bg-url()"></div>;
 }
 
-export default Hoime;
+export default Home;
