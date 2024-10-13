@@ -2,9 +2,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import Signup from './features/patient/Signup.jsx'
-import './index.css'
-// import { StrictMode } from "react";
-// import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import Home from "./home.jsx";
 import About from "./about.jsx";

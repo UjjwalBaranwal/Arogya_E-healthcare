@@ -27,7 +27,7 @@ function Navbar() {
             </div>
           </div>
           <div className="flex gap-3 text-xl">
-            <IoCall className=" h-8" /> call :{" "}
+            <IoCall className=" h-8 " /> call :{" "}
             <span className="font-bold ">XXX-XXX-XXXX</span>
           </div>
         </div>
