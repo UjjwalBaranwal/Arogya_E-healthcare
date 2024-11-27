@@ -13,6 +13,8 @@ const Chatbot = () => {
     if (inputMessage.trim() === "") return;
 
     const userMessage = { sender: "user", message: inputMessage };
+    setInputMessage(""); // Clear input field
+
     setMessages([...messages, userMessage]); // Update UI with the user's message
 
     try {
@@ -37,8 +39,6 @@ const Chatbot = () => {
         { sender: "bot", message: "Please connect to internet" },
       ]); // Add bot response to the UI
     }
-
-    setInputMessage(""); // Clear input field
   };
 
   const handleInputChange = (e) => {
@@ -54,24 +54,37 @@ const Chatbot = () => {
   return (
     <>
       <ChatButton isOpen={isOpen} setIsOpen={setIsOpen} />
-      <div className="chatbot-container ">
-        <div className="chat-window">
+      <div className="fixed right-0.5 bottom-0.5 flex flex-col w-[400px] h-[400px] border-1  border-[#ccc] border-solid rounded-lg bg-[#f9f9f9] ">
+        <div className="flex-grow overflow-y-auto p-3 bg-[#fff] border-b border-[#ccc] border-solid">
           {messages.map((msg, index) => (
-            <div key={index} className={`message ${msg.sender}`}>
+            <div
+              key={index}
+              className={`mx-1 my-2 p-4 border-solid border-[2px] max-w-[80%] rounded-xl ${
+                msg.sender === "user"
+                  ? "bg-[#e0e0e0] text-right self-end"
+                  : "bg-[#d1ecf1] self-start text-left"
+              }`}
+            >
               <p>{msg.message}</p>
             </div>
           ))}
         </div>
 
-        <div className="input-container">
+        <div className="input-container flex p-4 bg-[#f1f1f1]">
           <input
             type="text"
             placeholder="Type a message..."
             value={inputMessage}
             onChange={handleInputChange}
             onKeyUp={handleKeyPress}
+            className="flex-grow p-4 border-[#ccc] rounded-md outline-none border-solid "
           />
-          <button onClick={handleSendMessage}>Send</button>
+          <button
+            onClick={handleSendMessage}
+            className="p-4 ml-3 border-solid border-2 border-red-500 bg-[#007bff] rounded-lg cursor-pointer text-[white] hover:bg-[#0056b3]"
+          >
+            Send
+          </button>
         </div>
       </div>
     </>
@@ -83,9 +96,7 @@ function ChatButton({ isOpen, setIsOpen }) {
       onClick={() => {
         setIsOpen(!isOpen);
       }}
-      className={`absolute right-5 ${
-        isOpen ? "bottom-[25.5rem]  " : "bottom-3 "
-      }`}
+      className={`fixed right-5 ${isOpen ? "bottom-[25.5rem]  " : "bottom-3 "}`}
     >
       <AiOutlineWechat className="text-5xl" />
     </button>
