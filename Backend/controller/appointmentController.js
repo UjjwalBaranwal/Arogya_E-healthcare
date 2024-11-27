@@ -71,3 +71,11 @@ exports.getAll=catchAsync(async(req,res,next)=>{
         data
     })
 })
+
+// Turing 
+// Infra Market
+// Accenture 
+// Cognizant
+// LTI 
+// Auto Desk
+// Service now

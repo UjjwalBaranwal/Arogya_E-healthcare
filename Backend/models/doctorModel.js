@@ -58,16 +58,18 @@ const doctorSchema = new mongoose.Schema({
     required: [true, "please entered your address"],
   },
   location: {
-    type: {
-      type: String, // Specifies the type of GeoJSON object
-      enum: ["Point"], // Must be 'Point' for a Point type
-      required: true,
-      default: "Point",
-    },
-    coordinates: {
-      type: [Number], // Array of numbers [longitude, latitude]
-      required: true,
-    },
+    type:[String],
+    required:true,
+    // type: {
+    //   type: String,
+    //   enum: ["Point"],
+    //   required: true,
+    //   default: "Point",
+    // },
+    // coordinates: {
+    //   type: [Number], // Array of numbers [longitude, latitude]
+    //   required: true,
+    // },
   },
   specialization: {
     type: String,

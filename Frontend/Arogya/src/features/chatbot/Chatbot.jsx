@@ -4,7 +4,7 @@ import "./Chatbot.css"; // Optional, you can create your own CSS for styling
 import { AiOutlineWechat } from "react-icons/ai";
 const Chatbot = () => {
   const [messages, setMessages] = useState([
-    { sender: "bot", message: "how may i help you today" },
+    { sender: "bot", message: "Hello! How may I help you today?" },
   ]);
   const [inputMessage, setInputMessage] = useState("");
   const [isOpen, setIsOpen] = useState(false);

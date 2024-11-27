@@ -13,6 +13,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    
     try {
       const signupResponse = await fetch(
         "http://localhost:3000/api/v1/patient/signup",
@@ -47,10 +48,10 @@ const Signup = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center gap-4 p-10">
       <h2>Signup</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="bg-gray-500">
         <div>
           <label>Name:</label>
           <input

@@ -6,5 +6,6 @@ router.get("/getAll", patientController.getAll);
 router.get("/getOne/:id", patientController.getOne);
 router.post("/signup", patientController.signUp);
 router.post("/login", patientController.login);
+router.get("/logout",patientController.logout);
 module.exports = router;
 

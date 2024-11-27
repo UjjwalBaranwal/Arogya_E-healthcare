@@ -1,5 +1,9 @@
 *{
   margin: 0px;
   padding: 0px;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
+}
+
+.swiper-3d .swiper-slide-shadow-left {
+  /* background-image: none !important; */
 }

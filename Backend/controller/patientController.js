@@ -4,7 +4,7 @@ const catchAsync = require("./../utils/catchAsync");
 const jwt = require("jsonwebtoken");
 const AppError = require("./../utils/appError");
 const crypto = require("crypto");
-
+const {correctPassword} = require("../")
 const { env } = require("process");
 
 const signToken = (id) => {
@@ -49,7 +49,7 @@ exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password)
     return next(new AppError("pls provide valid email or password", 400));
-  const patient = await Patient.find({ email }).select("+password");
+  const patient = await Patient.findOne({ email }).select("+password");
 
   console.log(patient);
   if (
@@ -82,3 +82,17 @@ exports.getOne = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.logout = catchAsync(async (req, res, next) => {
+  // Clear the JWT cookie by setting it with an expired date
+  res.cookie("jwt", "loggedOut", {
+    expires: new Date(Date.now() + 10 * 1000),  // Expires in 10 seconds
+    httpOnly: true,
+  });
+  
+  res.status(200).json({
+    status: "success",
+    message: "Successfully logged out",
+  });
+});
+
