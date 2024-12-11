@@ -3,12 +3,16 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import loginPoster from "../../assets/loginPoster.jpg";
 import { useNavigate } from "react-router";
+import InputBox from "../../../commonUI/InputBox";
 const Signup1 = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const passwordTest =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
+  const classNameLabel = "block text-sm font-semibold text-gray-700";
+  const classNameField =
+    "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500";
+  const classNameError = "text-red-500 text-sm";
   return (
     <div className="p-16 flex flex-row justify-around items-center ">
       <img src={loginPoster} className=" p-16 w-1/2 h-1/2" />
@@ -65,7 +69,6 @@ const Signup1 = () => {
                   password: values.password,
                   role: values.role,
                   gender: values.gender,
-                  // active
                 }),
               }
             );
@@ -77,7 +80,7 @@ const Signup1 = () => {
               // navigate to the login page
               navigate("/login");
             } else {
-              navigate("/signup")
+              navigate("/signup");
               console.log(data);
             }
           } catch (err) {
@@ -85,9 +88,8 @@ const Signup1 = () => {
           }
         }}
       >
-        <Form className="w-1/2 h-auto max-w-lg p-6 bg-white rounded-lg shadow-lg space-y-4"
-        >
-          <label
+        <Form className="w-1/2 h-auto max-w-lg p-6 bg-white rounded-lg shadow-lg space-y-4">
+          {/* <label
             htmlFor="name"
             className="block text-sm font-semibold text-gray-700"
           >
@@ -102,8 +104,16 @@ const Signup1 = () => {
             name="name"
             component="div"
             className="text-red-500 text-sm"
-          />
+          /> */}
 
+          <InputBox
+            classNameField={classNameField}
+            classNameLabel={classNameLabel}
+            classNameError={classNameError}
+            name={"name"}
+            fieldName={"First Name"}
+            type={"text"}
+          />
           <label
             htmlFor="email"
             className="block text-sm font-semibold text-gray-700"
@@ -225,6 +235,5 @@ const Signup1 = () => {
     </div>
   );
 };
-
 
 export default Signup1;

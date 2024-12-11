@@ -19,6 +19,7 @@ const DB = process.env.DATABASE.replace(
 );
 mongoose
   .connect(DB, {
+    dbName: "Arogya_E-Healthcare",
     useNewUrlParser: true,
 
     useUnifiedTopology: true,

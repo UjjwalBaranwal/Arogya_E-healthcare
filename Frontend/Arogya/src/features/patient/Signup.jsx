@@ -13,7 +13,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     try {
       const signupResponse = await fetch(
         "http://localhost:3000/api/v1/patient/signup",
