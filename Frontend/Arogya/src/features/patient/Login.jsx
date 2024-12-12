@@ -32,13 +32,13 @@ const Login = () => {
       setIsLoading(false);
       if (loginResponse.ok) {
         window.alert("Login Successfully");
-        // if(data.token){
-        //   localStorage.setItem("userToken",data.token);
-        // }
         const token=data.token;
-
-        dispatch(login(token));
-        navigate("/patient/dashboard");
+        
+        console.log(data);
+        dispatch(login({token,role:"patient"}));
+        navigate("/patient/dashboard/Dashboard",{
+          state:{token},
+        });
         console.log("Congratulations you have logged in");
       } else {
 
@@ -86,6 +86,7 @@ const Login = () => {
           className="w-full p-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Enter your password"
         />
+        
 
         <button
           type="submit"

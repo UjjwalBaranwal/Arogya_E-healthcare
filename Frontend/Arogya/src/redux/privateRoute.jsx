@@ -3,10 +3,17 @@ import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
 const PrivateRoute = () => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const {isAuthenticated,role} = useSelector((state) => state.auth);
   console.log(isAuthenticated+  "token has receievd");
-  return isAuthenticated?<Outlet/> :<Navigate to="/login"/>
+  if(isAuthenticated && role=='patient'){
+     return <Outlet/>
+  }
+  if(isAuthenticated && role=='doctor'){
+    return <Outlet/>
+  }
+  return <Navigate to='/login'/>
 };
 
 export default PrivateRoute;
+
 
