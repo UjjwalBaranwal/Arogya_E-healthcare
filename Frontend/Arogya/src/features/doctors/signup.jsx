@@ -51,7 +51,7 @@ const Doctorsignup = () => {
           password: "",
           confirmPassword: "",
           gender: "",
-          website:"",
+          website: "",
           address: "",
           specialization: "",
           experience: 0,
@@ -124,7 +124,6 @@ const Doctorsignup = () => {
                   status: values.status,
                   ratingsAverage: values.ratingsAverage,
                   ratingsQuantity: values.ratingsQuantity,
-                  
                 }),
               }
             );
