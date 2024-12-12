@@ -68,7 +68,7 @@ const Testimonials = () => {
       </div>
 
       <div className="container ">
-        <Swiper 
+        <Swiper
           effect={"coverflow"}
           grabCursor={true}
           centeredSlides={true}
@@ -91,9 +91,9 @@ const Testimonials = () => {
         >
           {testimonialCards.map((card, index) => {
             return (
-              <SwiperSlide className="bg-back-record" >
+              <SwiperSlide className="bg-back-record" key={index}>
                 <div className="p-4 w-full mb-10 max-w-sm mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-                {/* <div className="p-4 max-w-sm mx-auto  rounded-xl  overflow-hidden md:max-w-2xl"> */}
+                  {/* <div className="p-4 max-w-sm mx-auto  rounded-xl  overflow-hidden md:max-w-2xl"> */}
                   <div className="md:flex  p-6 mb-6">
                     <div className="md:flex-shrink-0">
                       <img

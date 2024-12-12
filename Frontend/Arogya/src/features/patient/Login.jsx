@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import {login} from "../../redux/authSlice"
-import doctor from "../../assets/doctor.jpg"
+import { login } from "../../redux/authSlice";
+import doctor from "../../assets/doctor.jpg";
+import toast from "react-hot-toast";
 const Login = () => {
-  const dispatch=useDispatch();
-  const navigate=useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -31,24 +32,25 @@ const Login = () => {
       const data = await loginResponse.json();
       setIsLoading(false);
       if (loginResponse.ok) {
-        window.alert("Login Successfully");
-        const token=data.token;
-        
-        console.log(data);
-        dispatch(login({token,role:"patient"}));
-        navigate("/patient/dashboard/Dashboard",{
-          state:{token},
-        });
+        const token = data.token;
+        const user = data.data.user;
+        console.log("user : ", user);
+        dispatch(login({ token, user }));
+        toast.success("Login successfull");
+        navigate("/patient/dashboard");
         console.log("Congratulations you have logged in");
       } else {
-
-        // new code added here 
+        // new code added here
         navigate("/login");
         setError(data.message || "Login failed");
       }
     } catch (err) {
       setError("An error has occurred.");
       console.log(err);
+      toast.error("your email or password is wrong");
+      navigate("/login");
+      setEmail("");
+      setPassword("");
       setIsLoading(false);
     }
   };
@@ -56,15 +58,18 @@ const Login = () => {
   return (
     <div className="flex flex-row items-center justify-around min-h-screen p-6 bg-login-color text-black sm:p-10">
       <div className="basis-2/5">
-        <img src={doctor}/>
+        <img src={doctor} />
         <h1 className="text-center text-2xl sm:text-3xl font-bold text-lightBlueGreen leading-tight ">
-        Welcome to Arogya</h1>
+          Welcome to Arogya
+        </h1>
       </div>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col w-full max-w-sm bg-white p-6 rounded-lg shadow-md sm:max-w-md"
       >
-      <h1 className="text-xl text-center font-bold mb-6 sm:text-2xl md:text-3xl">Sign In</h1>
+        <h1 className="text-xl text-center font-bold mb-6 sm:text-2xl md:text-3xl">
+          Sign In
+        </h1>
         <label className="text-sm font-semibold mb-2 text-gray-700 sm:text-base">
           Email
         </label>
@@ -95,11 +100,9 @@ const Login = () => {
         >
           {isLoading ? "Logging in..." : "Login"}
         </button>
-        
+
         {error && (
-          <p className="mt-4 text-red-600 text-sm text-center">
-            {error}
-          </p>
+          <p className="mt-4 text-red-600 text-sm text-center">{error}</p>
         )}
       </form>
     </div>

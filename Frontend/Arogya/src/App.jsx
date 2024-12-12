@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import LandingPage from "./features/LandingPage/LandingPage";
 import Chatbot from "./features/chatbot/Chatbot";
 // import Signup from "./features/patient/SignUp";
@@ -7,16 +8,24 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+=======
+import { Toaster } from "react-hot-toast";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+>>>>>>> refs/remotes/origin/main
 import { Provider } from "react-redux";
+import { store } from "./redux/store";
+
+import LandingPage from "./features/LandingPage/LandingPage";
+// import Chatbot from "./features/chatbot/Chatbot";
+// import Signup from "./features/patient/SignUp";
 import Login from "./features/patient/Login";
 // import { useSelector } from "react-redux";
 import Signup1 from "./features/patient/SignUp1";
 import Banner from "./features/LandingPage/Banner";
 import Testimonials from "./features/LandingPage/testimonials";
-import { store } from "./redux/store";
 import Dashboard from "./features/patient/dashboard";
 import Record from "./features/LandingPage/record";
-import { useEffect, useState } from "react";
+
 import PrivateRoute from "./redux/privateRoute";
 import Doctorsignup from "./features/doctors/signup";
 import Login1 from "./features/doctors/Login"
