@@ -6,7 +6,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlineWheelchairPickup } from "react-icons/md";
 import { FaRegWindowClose } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { Popover, ArrowContainer } from 'react-tiny-popover'
+import { Popover, ArrowContainer } from "react-tiny-popover";
 
 function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -72,26 +72,28 @@ function Navbar() {
             reposition={false} // Prevents repositioning
             onClickOutside={() => setIsPopoverOpen(false)} // Close on click outside
             content={({ position, childRect, popoverRect }) => (
-				<ArrowContainer // if you'd like an arrow, you can import the ArrowContainer!
-				position={position}
-				childRect={childRect}
-				popoverRect={popoverRect}
-				arrowColor={'blue'}
-				arrowSize={10}
-				arrowStyle={{ opacity: 0.7 }}
-				className='popover-arrow-container'
-				arrowClassName='popover-arrow'
-			  >
-              <div className="p-4 mt-10bg-white shadow-lg rounded-lg w-full max-w-xs sm:w-80">
-                <button className="w-full text-left px-4 py-2 mt-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
-                  SignUp as Doctor
-                </button>
-                <Link to="/patient/signup" className="w-full text-left px-4 py-2 mt-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
-                  SignUp as Patient
-                </Link>
-              </div>
-			  </ArrowContainer>
-
+              <ArrowContainer // if you'd like an arrow, you can import the ArrowContainer!
+                position={position}
+                childRect={childRect}
+                popoverRect={popoverRect}
+                arrowColor={"blue"}
+                arrowSize={10}
+                arrowStyle={{ opacity: 0.7 }}
+                className="popover-arrow-container"
+                arrowClassName="popover-arrow"
+              >
+                <div className="p-4 mt-10bg-white shadow-lg rounded-lg w-full max-w-xs sm:w-80">
+                  <button className="w-full text-left px-4 py-2 mt-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                    SignUp as Doctor
+                  </button>
+                  <Link
+                    to="signup"
+                    className="w-full text-left px-4 py-2 mt-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+                  >
+                    SignUp as Patient
+                  </Link>
+                </div>
+              </ArrowContainer>
             )}
           >
             {/* Button that triggers the popover */}

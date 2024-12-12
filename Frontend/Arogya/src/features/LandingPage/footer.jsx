@@ -6,8 +6,7 @@ import { CgMail } from "react-icons/cg";
 const Footer = () => {
   return (
     <div className="bg-back-record flex flex-col">
-      <div class="flex flex-col ml-15 mt-15 md:flex-row ml-4 mt-10 font-exo">
-        
+      <div className="flex flex-col ml-15 mt-15 md:flex-row ml-4 mt-10 font-exo">
         <div className="flex flex-col gap-4 flex-wrap justify-evenly basis-full md:basis-1/3">
           <h1 className="">Logo 1</h1>
           <p>

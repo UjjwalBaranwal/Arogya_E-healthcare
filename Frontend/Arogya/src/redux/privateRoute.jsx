@@ -1,12 +1,18 @@
-import React from "react";
 import { useSelector } from "react-redux";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-const PrivateRoute = () => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  console.log(isAuthenticated+  "token has receievd");
-  return isAuthenticated?<Outlet/> :<Navigate to="/login"/>
+const PrivateRoute = ({ children, requiredRole }) => {
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+
+  // Check if the user is authenticated and has the required role
+  const hasAccess = isAuthenticated && user && user.role === requiredRole;
+  // Guard for missing role
+  if (!requiredRole) {
+    console.error("Required role not specified for PrivateRoute.");
+    return <Navigate to="/login" replace />;
+  }
+
+  return hasAccess ? children : <Navigate to="/login" replace />;
 };
 
 export default PrivateRoute;
-
