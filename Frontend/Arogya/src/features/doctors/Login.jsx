@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';  // Import useDispatch
 import {login} from "../../redux/authSlice"
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useState } from 'react';
+import toast from "react-hot-toast";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -26,15 +27,17 @@ export default function Login() {
         },
         body: JSON.stringify({ email, password }),
       });
+
       const data = await loginResponse.json();
       setIsLoading(false);
 
       if (loginResponse.ok) {
-        window.alert('Login Successful');
-        const token = data.token;
-        dispatch(login({ token, role: 'doctor' }));
-        navigate('/doctor/dashboard/Dashboard', { state: { token } });
-        console.log('Congratulations you have logged in');
+        const{
+          token,data:{user},
+        }=data;
+        dispatch(login({ token, user}));
+        toast.success('Congratulations you have logged in');
+        navigate('/doctor');
       } else {
         setError(data.message || 'Login failed');
       }

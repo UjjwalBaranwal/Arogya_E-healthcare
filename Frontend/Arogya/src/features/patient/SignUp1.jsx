@@ -78,7 +78,7 @@ const Signup1 = () => {
               window.alert("Successfully signup");
               console.log("Signup successfully:", data);
               // navigate to the login page
-              navigate("/login");
+              navigate("login");
             } else {
               navigate("/signup");
               console.log(data);

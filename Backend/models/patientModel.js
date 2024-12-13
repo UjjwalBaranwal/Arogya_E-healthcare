@@ -32,7 +32,6 @@ const patientSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    select: false,
     default: "patient",
   },
   gender: {
@@ -68,8 +67,6 @@ patientSchema.methods.correctPassword = async function (
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
-
 const Patient = mongoose.model("Patient", patientSchema);
-
 
 module.exports = Patient;

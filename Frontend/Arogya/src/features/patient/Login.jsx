@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { login } from "../../redux/authSlice";
 import doctor from "../../assets/doctor.jpg";
 import toast from "react-hot-toast";
+
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -15,54 +16,52 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setError(""); // Clear previous error
+
     try {
       const loginResponse = await fetch(
         "http://localhost:3000/api/v1/patient/login",
         {
-          method: "post",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
+          body: JSON.stringify({ email, password }),
         }
       );
+
       const data = await loginResponse.json();
       setIsLoading(false);
+
       if (loginResponse.ok) {
-        const token = data.token;
-        const user = data.data.user;
-        console.log("user : ", user);
+        const {
+          token,
+          data: { user },
+        } = data; // Destructure token and user from the response
         dispatch(login({ token, user }));
-        toast.success("Login successfull");
-        navigate("/patient/dashboard");
-        console.log("Congratulations you have logged in");
+        toast.success("Login successful");
+        navigate("/patient");
       } else {
-        // new code added here
-        navigate("/login");
         setError(data.message || "Login failed");
       }
     } catch (err) {
-      setError("An error has occurred.");
-      console.log(err);
-      toast.error("your email or password is wrong");
-      navigate("/login");
-      setEmail("");
+      setError("An error occurred. Please try again.");
+      console.error(err);
+      toast.error("Your email or password is incorrect.");
+      setEmail(""); // Clear email and password only if you want to reset the form
       setPassword("");
-      setIsLoading(false);
     }
   };
 
   return (
     <div className="flex flex-row items-center justify-around min-h-screen p-6 bg-login-color text-black sm:p-10">
       <div className="basis-2/5">
-        <img src={doctor} />
+        <img src={doctor} alt="Doctor" />
         <h1 className="text-center text-2xl sm:text-3xl font-bold text-lightBlueGreen leading-tight ">
           Welcome to Arogya
         </h1>
       </div>
+
       <form
         onSubmit={handleSubmit}
         className="flex flex-col w-full max-w-sm bg-white p-6 rounded-lg shadow-md sm:max-w-md"
@@ -70,6 +69,7 @@ const Login = () => {
         <h1 className="text-xl text-center font-bold mb-6 sm:text-2xl md:text-3xl">
           Sign In
         </h1>
+
         <label className="text-sm font-semibold mb-2 text-gray-700 sm:text-base">
           Email
         </label>

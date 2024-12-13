@@ -10,6 +10,7 @@ import Footer from "./footer";
 // import Signup from "../patient/Signup";
 // import Signup1 from "../patient/SignUp1";
 import Chatbot from "../chatbot/Chatbot";
+import DoctorSignup from "../doctors/signup";
 
 // import { Outlet } from "react-router";
 // import Navbar from "./Navbar";
@@ -25,6 +26,7 @@ function LandingPage() {
       <Record/> 
       <Testimonials/>
       <Footer/>
+      <DoctorSignup/>
       {/* <Login/> */}
     </div>
   );

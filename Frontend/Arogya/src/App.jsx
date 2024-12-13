@@ -1,66 +1,78 @@
-<<<<<<< HEAD
-import LandingPage from "./features/LandingPage/LandingPage";
-import Chatbot from "./features/chatbot/Chatbot";
-// import Signup from "./features/patient/SignUp";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-=======
 import { Toaster } from "react-hot-toast";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
->>>>>>> refs/remotes/origin/main
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
-
+//////// Landing Page component
 import LandingPage from "./features/LandingPage/LandingPage";
-// import Chatbot from "./features/chatbot/Chatbot";
-// import Signup from "./features/patient/SignUp";
-import Login from "./features/patient/Login";
-// import { useSelector } from "react-redux";
-import Signup1 from "./features/patient/SignUp1";
 import Banner from "./features/LandingPage/Banner";
+import Record from "./features/LandingPage/Record";
 import Testimonials from "./features/LandingPage/testimonials";
-import Dashboard from "./features/patient/dashboard";
-import Record from "./features/LandingPage/record";
-
+/////// Patient Component
+import Login from "./features/patient/Login";
+import Signup1 from "./features/patient/SignUp1";
+import Dashboard from "./features/patient/Dashboard";
 import PrivateRoute from "./redux/privateRoute";
-import Doctorsignup from "./features/doctors/signup";
-import Login1 from "./features/doctors/Login"
-import Sign1 from "./features/doctors/signup"
-import Dashboard1 from "./features/doctors/dashboard/Dashboard";
-function App() {
-  // const { isAuthenticated, role } = useSelector((state) => state.auth);
+import Doctorsignup from "./features/doctors/Signup";
+import AppLayout from "./features/patient/AppLayout";
+import MyRecord from "./features/patient/MyRecord";
+import DoctorLogin from "./features/doctors/Login"
+import DoctorLayout from "./features/doctors/AppLayout";
+///// Common UI
+import ErrorPage from "../commonUI/ErrorPage";
 
+function App() {
   return (
     <Provider store={store}>
-      {/* <Chatbot/> */}
-      <Router>
-        <div>
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/loginforme" element={<Login1/>}/>
-            <Route path="/loginformes" element={<Sign1/>}/>
-            <Route path="/patient/signup" element={<Signup1 />} />
-            <Route path="/banner" element={<Banner />} />
-            <Route path="/about" element={<Record />} />
-            <Route path="/testimonials" element={<Testimonials />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup1 />} />
-            <Route path="/doctor/signup" element={<Doctorsignup />} />
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<LandingPage />} />
+          <Route path="signup" element={<Signup1 />} />
+          <Route path="banner" element={<Banner />} />
+          <Route path="about" element={<Record />} />
+          <Route path="testimonials" element={<Testimonials />} />
+          <Route path="login" element={<Login />} />
+          <Route path="doctor/signup" element={<Doctorsignup />} />
+          <Route path="doctor/login" element={<DoctorLogin/>}/>
+          <Route
+            path="patient"
+            element={
+              <PrivateRoute requiredRole="patient">
+                <AppLayout />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="doctor"
+            element={
+              <PrivateRoute requiredRole="doctor">
+                <DoctorLayout/>
+              </PrivateRoute>
+            }
+          >
+            <Route index element={<Navigate to="dashboard" replace />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="my_record" element={<MyRecord />} />
+          </Route>
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </BrowserRouter>
 
-            {/* Protected Route */}
-            <Route element={<PrivateRoute />}>
-              <Route path="/patient/dashboard/Dashboard" element={<Dashboard/>}/>
-            </Route>
-            <Route element={<PrivateRoute />}>
-              <Route path="/doctor/dashboard/Dashboard" element={<Dashboard1/>}/>
-            </Route>
-          </Routes>
-        </div>
-      </Router>
+      <Toaster
+        position="top-center"
+        gutter={12}
+        containerStyle={{ margin: "8px" }}
+        toastOptions={{
+          success: { duration: 3000 },
+          error: { duration: 5000 },
+          style: {
+            fontSize: "16px",
+            maxWidth: "500px",
+            padding: "16px 24px",
+            backgroundColor: "#fff",
+            color: "#374151",
+          },
+        }}
+      />
     </Provider>
   );
 }
