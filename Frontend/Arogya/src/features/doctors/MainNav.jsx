@@ -11,14 +11,12 @@ function MainNav() {
     "flex items-center gap-3 text-[#774A30] font-semibold text-base font-medium py-3 px-6 transition-all duration-300 hover:text-gray-800 hover:bg-cyan-300 hover:rounded-sm active:text-gray-800 active:bg-cyan-200 active:rounded-sm active:bg-cyan-200 [&.active]:text-gray-800 [&.active]:bg-cyan-200 [&.active]:rounded-sm";
   const iconStyle =
     "w-6 h-6 text-gray-400 transition-all duration-300 hover:text-brand-600 active:text-brand-600 [&.active]:text-brand-600";
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const handleLogout = async () => {
     dispatch(logout()); // Clear user session from Redux store
     toast.success("Logged out successfully");
-    navigate("/login"); // Redirect to the login page
+    navigate("/doctorLogin"); // Redirect to the login page
   };
 
   return (
@@ -43,7 +41,7 @@ function MainNav() {
             }
           >
             <FiActivity className={iconStyle} />
-            <span>My Record</span>
+            <span>Patient History</span>
           </NavLink>
         </li>
         <li>
@@ -54,7 +52,7 @@ function MainNav() {
             }
           >
             <MdOutlineLeaderboard className={iconStyle} />
-            <span>View Past Appointment</span>
+            <span>View Today Appointment</span>
           </NavLink>
         </li>
         <li>

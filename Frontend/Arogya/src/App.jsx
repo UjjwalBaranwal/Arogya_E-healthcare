@@ -16,11 +16,12 @@ import Signup1 from "./features/patient/SignUp1";
 import Dashboard from "./features/patient/Dashboard";
 
 import PrivateRoute from "./redux/privateRoute";
-import Doctorsignup from "./features/doctors/Signup";
 import AppLayout from "./features/patient/AppLayout";
 import MyRecord from "./features/patient/MyRecord";
-import DoctorLogin from "./features/doctors/Login"
+import DoctorLogin from "./features/doctors/Login";
+import DoctorDashboard from "./features/doctors/DoctorDashboard";
 import DoctorLayout from "./features/doctors/AppLayout";
+import DoctorSignup from "./features/doctors/signup";
 ///// Common UI
 import ErrorPage from "../commonUI/ErrorPage";
 
@@ -45,6 +46,8 @@ function App() {
             <Route path="about" element={<Record />} />
             <Route path="testimonials" element={<Testimonials />} />
             <Route path="login" element={<Login />} />
+            <Route path="doctorLogin" element={<DoctorLogin />} />
+            <Route path="doctorSignup" element={<DoctorSignup/>}/>
             <Route
               path="patient"
               element={
@@ -57,7 +60,20 @@ function App() {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="my_record" element={<MyRecord />} />
             </Route>
-            <Route path="doctor/signup" element={<Doctorsignup />} />
+            <Route
+              path="doctor"
+              element={
+                <PrivateRoute requiredRole="doctor">
+                  <DoctorLayout />
+                </PrivateRoute>
+              }
+            >
+              <Route
+                index
+                element={<Navigate to="doctorDashboard" replace />}
+              />
+              <Route path="doctorDashboard" element={<DoctorDashboard/>} />
+            </Route>
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </BrowserRouter>

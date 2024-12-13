@@ -25,7 +25,7 @@ const DoctorSignup = () => {
     },
     location: {
       type: "Point",
-      coordinates: [""],
+      coordinates: [0,0],
     },
     status: "",
     ratingsAverage: 4,
@@ -35,6 +35,11 @@ const DoctorSignup = () => {
   const handleSubmit = async (values) => {
     console.log("submit button is clicked");
     try {
+      const coordinates = values.location.split(",").map((loc) => parseFloat(loc.trim()));
+      if (coordinates.length !== 2 || coordinates.some((num) => isNaN(num))) {
+        throw new Error("Invalid location format. Please enter 'longitude,latitude'.");
+      }
+  
       const signupResponse = await fetch(
         "http://localhost:3000/api/v1/doctor/signup",
         {
@@ -61,7 +66,10 @@ const DoctorSignup = () => {
               open: "09:00",
               close: "17:00",
             },
-            location: values.location.split(",").map((loc) => loc.trim()),
+            location: {
+              type: "Point",
+              coordinates,
+            },            // location:[28.4744567, 77.5106863],
             status: values.status,
             // ratingsAverage: values.ratingsAverage,
             ratingsAverage: 4,
@@ -77,7 +85,7 @@ const DoctorSignup = () => {
         window.alert("Successfully signed up");
         console.log("Signup successfully:", data);
         // Navigate to the login page (ensure you have access to navigate)
-        navigate("/doctor/login");
+        navigate("/doctorLogin");
       } else {
         console.log("Signup failed:", data);
         window.alert("Signup failed. Please try again.");
@@ -89,9 +97,32 @@ const DoctorSignup = () => {
   };
 
   const handleLocation = (setFieldValue) => {
-    const fakeLocation = "1234 Elm St, Springfield";
-    setFieldValue("location", fakeLocation);
-    console.log("Location set to:", fakeLocation);
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const location = `${position.coords.latitude}, ${position.coords.longitude}`;
+          setFieldValue("location", location);
+          SpeechSynthesisErrorEvent("");
+        },
+        (error) => {
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              setError("Permission denied by the user");
+              break;
+            case error.POSITION_UNAVAILABLE:
+              setError("Location information is unavalilabe");
+              break;
+            case error.TIMEOUT:
+              setError("loccation to get user is timed out");
+              break;
+            default:
+              setError("An unknown error has occured");
+          }
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by the browser");
+    }
   };
 
   return (

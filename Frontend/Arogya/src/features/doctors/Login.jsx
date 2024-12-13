@@ -60,7 +60,7 @@ export default function Login() {
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
               Don't have an account?{' '}
-              <NavLink to="/doctor/register" className="font-medium text-indigo-600 hover:text-indigo-500">
+              <NavLink to="/doctorSignup" className="font-medium text-indigo-600 hover:text-indigo-500">
                 Sign up
               </NavLink>
             </p>
