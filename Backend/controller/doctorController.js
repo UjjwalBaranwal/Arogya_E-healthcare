@@ -33,6 +33,12 @@ const createAndSendToken = (user, statusCode, res) => {
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
+  const location = req.body.location || {
+    type: "Point",
+    coordinates: req.body.coordinates || [],
+  };
+
+  // Create the doctor
   const newDoctor = await Doctor.create({
     name: req.body.name,
     email: req.body.email,
@@ -43,13 +49,14 @@ exports.signup = catchAsync(async (req, res, next) => {
     gender: req.body.gender,
     website: req.body.website,
     address: req.body.address,
-    location: req.body.location,
+    location: location,
     specialization: req.body.specialization,
     experience: req.body.experience,
     consultationFee: req.body.consultationFee,
     timing: req.body.timing,
   });
 
+  // Send token with response
   createAndSendToken(newDoctor, 201, res);
 });
 

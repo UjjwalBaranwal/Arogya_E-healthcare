@@ -1,4 +1,4 @@
-const crypto = require("crypto"); //built-in module for generating token
+const crypto = require("crypto");
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
@@ -6,34 +6,33 @@ const bcrypt = require("bcryptjs");
 const doctorSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, "please entered the name"],
+    required: [true, "Please enter the name"],
     trim: true,
   },
   email: {
     type: String,
-    required: [true, "please entered the email"],
+    required: [true, "Please enter the email"],
     unique: true,
     trim: true,
     lowercase: true,
-    validate: [validator.isEmail, "pls entered valid email"],
+    validate: [validator.isEmail, "Please enter a valid email"],
   },
   photo: String,
   phoneNumber: {
-    type: Number,
-    required: [true, "pls entered your phone number"],
+    type: String,
+    required: [true, "Please enter your phone number"],
+    validate: [validator.isMobilePhone, "Please enter a valid phone number"],
   },
   password: {
     type: String,
-    required: [true, "pls entered the password "],
+    required: [true, "Please enter the password"],
     minlength: 8,
     select: false,
   },
   confirmPassword: {
     type: String,
-    required: [true, "pls entered the same password as the password"],
     minlength: 8,
     validate: {
-      //// this only work on create and save
       validator: function (val) {
         return this.password === val;
       },
@@ -49,27 +48,21 @@ const doctorSchema = new mongoose.Schema({
     type: String,
     default: "doctor",
   },
-
-  website: {
-    type: String,
-  },
+  website: String,
   address: {
     type: String,
-    required: [true, "please entered your address"],
+    required: [true, "Please enter your address"],
   },
   location: {
-    type:[String],
-    required:true,
-    // type: {
-    //   type: String,
-    //   enum: ["Point"],
-    //   required: true,
-    //   default: "Point",
-    // },
-    // coordinates: {
-    //   type: [Number], // Array of numbers [longitude, latitude]
-    //   required: true,
-    // },
+    type: {
+      type: String,
+      enum: ["Point"],
+      default: "Point",
+    },
+    coordinates: {
+      type: [Number],
+      required: [true, "Please enter coordinates in [longitude, latitude]"],
+    },
   },
   specialization: {
     type: String,
@@ -84,24 +77,32 @@ const doctorSchema = new mongoose.Schema({
       "Rheumatologist",
       "other",
     ],
-    required: [true, "pls entered your specilization"],
+    required: [true, "Please enter your specialization"],
   },
   experience: {
     type: Number,
-    required: [true, "enter your expreience year"],
+    required: [true, "Enter your experience year"],
   },
   consultationFee: {
     type: Number,
-    required: [true, "enter your consultation fee"],
+    required: [true, "Enter your consultation fee"],
   },
   timing: {
     open: {
-      type: String, // time in format HH:MM 09:00
+      type: String,
       required: [true, "Please enter the opening time"],
+      validate: {
+        validator: (val) => /^([0-1][0-9]|2[0-3]):[0-5][0-9]$/.test(val),
+        message: "Opening time must be in HH:MM format",
+      },
     },
     close: {
       type: String,
       required: [true, "Please enter the closing time"],
+      validate: {
+        validator: (val) => /^([0-1][0-9]|2[0-3]):[0-5][0-9]$/.test(val),
+        message: "Closing time must be in HH:MM format",
+      },
     },
   },
   status: {
@@ -111,9 +112,9 @@ const doctorSchema = new mongoose.Schema({
   ratingsAverage: {
     type: Number,
     default: 4.5,
-    min: [1, "rating should of atleast 1.0"],
-    max: [5, "rating should of atmost 5.0"],
-    set: (val) => Math.round(val * 10) / 10, // 4.666666-->46.666->47->4.7
+    min: [1, "Rating should be at least 1.0"],
+    max: [5, "Rating should be at most 5.0"],
+    set: (val) => Math.round(val * 10) / 10,
   },
   ratingsQuantity: {
     type: Number,
@@ -121,18 +122,18 @@ const doctorSchema = new mongoose.Schema({
   },
 });
 
-// / creating the encryption of the password
+// Index for geospatial queries
+doctorSchema.index({ location: "2dsphere" });
+
+// Pre-save hook to hash password
 doctorSchema.pre("save", async function (next) {
-  // only run in the case when the password was actully modified
   if (!this.isModified("password")) return next();
-  // hashing the password with the cpy cost 12
   this.password = await bcrypt.hash(this.password, 12);
-  // delete the password confirm field
-  this.confirmPassword = undefined;
+  this.confirmPassword = undefined; // Remove confirmPassword field
   next();
 });
-/// creating the decryption of the password
-// this method is instance method its mean its available in whole file
+
+// Compare passwords
 doctorSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword

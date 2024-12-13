@@ -11,6 +11,7 @@ const PrivateRoute = ({ children, requiredRole }) => {
     console.error("Required role not specified for PrivateRoute.");
     return <Navigate to="/login" replace />;
   }
+  console.log("i am in private route , HasAccess : ", hasAccess);
 
   return hasAccess ? children : <Navigate to="/login" replace />;
 };
