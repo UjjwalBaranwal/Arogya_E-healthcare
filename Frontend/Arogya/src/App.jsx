@@ -22,8 +22,15 @@ import DoctorLogin from "./features/doctors/Login";
 import DoctorDashboard from "./features/doctors/DoctorDashboard";
 import DoctorLayout from "./features/doctors/AppLayout";
 import DoctorSignup from "./features/doctors/signup";
+import PastAppointment from "./features/patient/contents/pastAppointment";
 ///// Common UI
 import ErrorPage from "./UI/ErrorPage";
+import AdminLayout from "../src/features/Admin/AdminLayout"
+import AdminLogin from "./features/Admin/AdminLogin";
+import AdminDashboard from "./features/Admin/AdminDashboard";
+import GetAllPatient from "./features/Admin/content/getPatient";
+import GetAllDoctors from "./features/Admin/content/getDoctor";
+import GetNotification from "./features/Admin/content/getNotification";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,6 +55,7 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="doctorLogin" element={<DoctorLogin />} />
             <Route path="doctorSignup" element={<DoctorSignup />} />
+            <Route path="adminLogin" element={<AdminLogin />} />
             <Route
               path="patient"
               element={
@@ -55,8 +63,8 @@ function App() {
                   <AppLayout />
                 </PrivateRoute>
               }
-            > 
-              <Route path="patientAppointment" element={<PastAppointment/>}/>
+            >
+              <Route path="patientAppointment" element={<PastAppointment />} />
               <Route index element={<Navigate to="dashboard" replace />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="my_record" element={<MyRecord />} />
@@ -75,6 +83,33 @@ function App() {
               />
               <Route path="doctorDashboard" element={<DoctorDashboard />} />
             </Route>
+
+
+
+            <Route
+              path="admin"
+              element={
+                <PrivateRoute requiredRole="admin">
+                  <AdminLayout />
+                </PrivateRoute>
+              }
+            >
+              <Route
+                index
+                element={<Navigate to="adminDashboard" replace />}
+              />
+              <Route path="adminDashboard" element={<AdminDashboard />} />
+              <Route path="getAllpatient" element={<GetAllPatient/>}/>
+              <Route path="getAllDoctor" element={<GetAllDoctors/>}/>
+              <Route path="getAllnotification" element={<GetNotification/>}/>
+            </Route>
+
+
+
+
+
+
+
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </BrowserRouter>
