@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import loginPoster from "../../assets/loginPoster.jpg";
 import { useNavigate } from "react-router";
-import InputBox from "../../../commonUI/InputBox";
+import InputBox from "../../UI/InputBox";
 const Signup1 = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);

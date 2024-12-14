@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import PatientInfoBox from "../../../commonUI/PatientInfoBox";
+import PatientInfoBox from "../../UI/PatientInfoBox";
 
 function Header() {
   const { user } = useSelector((state) => state.auth);
