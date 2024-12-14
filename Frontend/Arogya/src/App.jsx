@@ -23,7 +23,7 @@ import DoctorDashboard from "./features/doctors/DoctorDashboard";
 import DoctorLayout from "./features/doctors/AppLayout";
 import DoctorSignup from "./features/doctors/signup";
 ///// Common UI
-import ErrorPage from "../commonUI/ErrorPage";
+import ErrorPage from "./UI/ErrorPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -47,7 +47,7 @@ function App() {
             <Route path="testimonials" element={<Testimonials />} />
             <Route path="login" element={<Login />} />
             <Route path="doctorLogin" element={<DoctorLogin />} />
-            <Route path="doctorSignup" element={<DoctorSignup/>}/>
+            <Route path="doctorSignup" element={<DoctorSignup />} />
             <Route
               path="patient"
               element={
@@ -72,7 +72,7 @@ function App() {
                 index
                 element={<Navigate to="doctorDashboard" replace />}
               />
-              <Route path="doctorDashboard" element={<DoctorDashboard/>} />
+              <Route path="doctorDashboard" element={<DoctorDashboard />} />
             </Route>
             <Route path="*" element={<ErrorPage />} />
           </Routes>

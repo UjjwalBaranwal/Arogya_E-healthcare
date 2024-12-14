@@ -1,6 +1,6 @@
 import { getAllDoctors } from "./queryPatient"; // Assuming this is a custom hook
-import Spinner from "../../../commonUI/Spinner";
-import CardDoctor from "../../../commonUI/CardDoctor";
+import Spinner from "../../UI/Spinner";
+import CardDoctor from "../../UI/CardDoctor";
 
 function Dashboard() {
   // Using the custom hook `getAllDoctors` for fetching data
