@@ -13,9 +13,9 @@ function CardDoctor({ doctor }) {
   } = doctor;
 
   return (
-    <div className="flex flex-col md:flex-row items-center p-6 bg-white shadow-lg rounded-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out gap-4">
+    <div className="flex flex-col md:flex-row items-center p-6 shadow-lg rounded-lg transition-shadow duration-300 ease-in-out gap-4">
       {/* Doctor Photo */}
-      <div className="w-32 h-32 md:w-40 md:h-40 flex-shrink-0 overflow-hidden rounded-full border-4 border-blue-500">
+      <div className="w-32 h-32 md:w-40 md:h-40 flex-shrink-0 overflow-hidden rounded-full border-4">
         <img
           src={"https://picsum.photos/200/300" || photo}
           alt={`${name}-photo`}
@@ -25,12 +25,12 @@ function CardDoctor({ doctor }) {
 
       {/* Doctor Details */}
       <div className="mt-4 md:mt-0 md:ml-6 flex-1 text-gray-700">
-        <h2 className="text-2xl font-bold text-blue-700 mb-1">{name}</h2>
+        <h2 className="text-2xl font-bold mb-1">{name}</h2>
         <div className="flex items-center mt-2 space-x-2 text-yellow-500 gap-10">
           <p className="text-md font-semibold text-gray-500">
             {specialization}
           </p>
-          <div>
+          <div className="flex items-center">
             <span className="text-xl">⭐</span>
             <span className="font-medium">{ratingsAverage}</span>
           </div>
@@ -59,20 +59,18 @@ function CardDoctor({ doctor }) {
         </div>
 
         {/* Action Buttons */}
-        <div className="grid grid-cols-2 justify-center text-center">
+        <div className="grid grid-cols-2 gap-4 mt-6">
           {website && (
-            <div className="flex mt-4 space-x-4">
-              <a
-                href={website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-all duration-200"
-              >
-                Visit Website
-              </a>
-            </div>
+            <a
+              href={website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block p-2 bg-blue-600  rounded-lg shadow hover:bg-blue-700 transition-all duration-200"
+            >
+              Visit Website
+            </a>
           )}
-          <button className="px-4 py-2 bg-orange-600 text-white rounded-lg shadow hover:bg-orange-700 transition-all duration-200">
+          <button className="p-2  bg-orange-500  rounded-lg shadow hover:bg-orange-600 transition-all duration-200 focus:outline-none focus:ring-0">
             Book Appointment
           </button>
         </div>

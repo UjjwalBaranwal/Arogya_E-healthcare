@@ -2,6 +2,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { HiOutlineCog6Tooth, HiOutlineHome } from "react-icons/hi2";
 import { MdOutlineLeaderboard } from "react-icons/md";
 import { MdOutlineLogout } from "react-icons/md";
+import { FaNotesMedical } from "react-icons/fa6";
+import { FaHistory } from "react-icons/fa";
+import { MdContactEmergency } from "react-icons/md";
+import { GiCash } from "react-icons/gi";
+
 import { toast } from "react-hot-toast";
 import { FiActivity } from "react-icons/fi";
 import { useDispatch } from "react-redux";
@@ -18,54 +23,61 @@ function MainNav() {
     toast.success("Logged out successfully");
     navigate("/doctorLogin"); // Redirect to the login page
   };
+  const navItems = [
+    {
+      to: "dashboard",
+      icon: <HiOutlineHome className={iconStyle} />,
+      label: "Home",
+    },
+    {
+      to: "leaderboard",
+      icon: <MdOutlineLeaderboard className={iconStyle} />,
+      label: "View Today Appointment",
+    },
+    {
+      to: "settings",
+      icon: <FaNotesMedical className={iconStyle} />,
+      label: "Notes",
+    },
+    {
+      to: "patienthistory",
+      icon: <FaHistory className={iconStyle} />,
+      label: "Patient History",
+    },
+    {
+      to: "emergency_cases",
+      icon: <MdContactEmergency className={iconStyle} />,
+      label: "Emergency Cases",
+    },
+    {
+      to: "earning_summary",
+      icon: < GiCash className={iconStyle} />,
+      label: "Earning Summary",
+    },
+    {
+      to: "notes_details",
+      icon: <HiOutlineCog6Tooth className={iconStyle} />,
+      label: "Setting",
+    },
+  ];
+
 
   return (
     <nav>
       <ul className="flex flex-col gap-2">
-        <li>
-          <NavLink
-            to="dashboard"
-            className={({ isActive }) =>
-              `${navStyle} ${isActive ? "text-gray-800 bg-cyan-200" : ""}`
-            }
-          >
-            <HiOutlineHome className={iconStyle} />
-            <span>Home</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="my_record"
-            className={({ isActive }) =>
-              `${navStyle} ${isActive ? "text-gray-800 bg-cyan-200" : ""}`
-            }
-          >
-            <FiActivity className={iconStyle} />
-            <span>Patient History</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="leaderboard"
-            className={({ isActive }) =>
-              `${navStyle} ${isActive ? "text-gray-800 bg-cyan-200" : ""}`
-            }
-          >
-            <MdOutlineLeaderboard className={iconStyle} />
-            <span>View Today Appointment</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="settings"
-            className={({ isActive }) =>
-              `${navStyle} ${isActive ? "text-gray-800 bg-cyan-200" : ""}`
-            }
-          >
-            <HiOutlineCog6Tooth className={iconStyle} />
-            <span>Settings</span>
-          </NavLink>
-        </li>
+        {navItems.map((item, index) => (
+          <li key={index}>
+            <NavLink
+              to={item.to}
+              className={({ isActive }) =>
+                `${navStyle} ${isActive ? "text-gray-800 bg-cyan-200" : ""}`
+              }
+            >
+              {item.icon}
+              <span>{item.label}</span>
+            </NavLink>
+          </li>
+        ))}
         <li>
           <button
             className={`${navStyle} bg-transparent w-full`}

@@ -26,8 +26,7 @@ function LandingPage() {
       <Record/> 
       <Testimonials/>
       <Footer/>
-      <DoctorSignup/>
-      {/* <Login/> */}
+
     </div>
   );
 }

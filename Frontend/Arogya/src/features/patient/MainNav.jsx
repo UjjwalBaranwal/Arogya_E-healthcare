@@ -2,6 +2,10 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { HiOutlineCog6Tooth, HiOutlineHome } from "react-icons/hi2";
 import { MdOutlineLeaderboard } from "react-icons/md";
 import { MdOutlineLogout } from "react-icons/md";
+import { MdOutlinePayments } from "react-icons/md";
+import { FaNotesMedical } from "react-icons/fa6";
+import { AiTwotoneInsurance } from "react-icons/ai";
+
 import { toast } from "react-hot-toast";
 import { FiActivity } from "react-icons/fi";
 import { useDispatch } from "react-redux";
@@ -21,53 +25,60 @@ function MainNav() {
     navigate("/login"); // Redirect to the login page
   };
 
+  const navItems = [
+    {
+      to: "dashboard",
+      icon: <HiOutlineHome className={iconStyle} />,
+      label: "Home",
+    },
+    {
+      to: "my_record",
+      icon: <FiActivity className={iconStyle} />,
+      label: "My Record",
+    },
+    {
+      to: "patientAppointment",
+      icon: <MdOutlineLeaderboard className={iconStyle} />,
+      label: "View Past Appointment",
+    },
+    {
+      to: "settings",
+      icon: <FaNotesMedical className={iconStyle} />,
+      label: "Doctor's Notes",
+    },
+    {
+      to: "settings",
+      icon: <AiTwotoneInsurance className={iconStyle} />,
+      label: "Insurance Details",
+    },
+    {
+      to: "payment_history",
+      icon: <MdOutlinePayments className={iconStyle} />,
+      label: "Payment History",
+    },
+    {
+      to: "settings",
+      icon: <HiOutlineCog6Tooth className={iconStyle} />,
+      label: "Settings",
+    },
+  ];
+
   return (
     <nav>
       <ul className="flex flex-col gap-2">
-        <li>
-          <NavLink
-            to="dashboard"
-            className={({ isActive }) =>
-              `${navStyle} ${isActive ? "text-gray-800 bg-cyan-200" : ""}`
-            }
-          >
-            <HiOutlineHome className={iconStyle} />
-            <span>Home</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="my_record"
-            className={({ isActive }) =>
-              `${navStyle} ${isActive ? "text-gray-800 bg-cyan-200" : ""}`
-            }
-          >
-            <FiActivity className={iconStyle} />
-            <span>My Record</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="leaderboard"
-            className={({ isActive }) =>
-              `${navStyle} ${isActive ? "text-gray-800 bg-cyan-200" : ""}`
-            }
-          >
-            <MdOutlineLeaderboard className={iconStyle} />
-            <span>View Past Appointment</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="settings"
-            className={({ isActive }) =>
-              `${navStyle} ${isActive ? "text-gray-800 bg-cyan-200" : ""}`
-            }
-          >
-            <HiOutlineCog6Tooth className={iconStyle} />
-            <span>Settings</span>
-          </NavLink>
-        </li>
+        {navItems.map((item, index) => (
+          <li key={index}>
+            <NavLink
+              to={item.to}
+              className={({ isActive }) =>
+                `${navStyle} ${isActive ? "text-gray-800 bg-cyan-200" : ""}`
+              }
+            >
+              {item.icon}
+              <span>{item.label}</span>
+            </NavLink>
+          </li>
+        ))}
         <li>
           <button
             className={`${navStyle} bg-transparent w-full`}

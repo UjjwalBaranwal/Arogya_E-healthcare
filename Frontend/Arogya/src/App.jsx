@@ -24,6 +24,7 @@ import DoctorLayout from "./features/doctors/AppLayout";
 import DoctorSignup from "./features/doctors/signup";
 ///// Common UI
 import ErrorPage from "../commonUI/ErrorPage";
+import PastAppointment from "./features/patient/contents/pastAppointment";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,6 +49,7 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="doctorLogin" element={<DoctorLogin />} />
             <Route path="doctorSignup" element={<DoctorSignup/>}/>
+            
             <Route
               path="patient"
               element={
@@ -55,7 +57,8 @@ function App() {
                   <AppLayout />
                 </PrivateRoute>
               }
-            >
+            > 
+              <Route path="patientAppointment" element={<PastAppointment/>}/>
               <Route index element={<Navigate to="dashboard" replace />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="my_record" element={<MyRecord />} />
