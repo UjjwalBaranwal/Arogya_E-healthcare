@@ -3,10 +3,13 @@ const Doctor = require("../models/doctorModel");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 
-
-
 exports.bookAppointment = catchAsync(async (req, res, next) => {
   const { doctorId, date, patientId, isPriority, moneyPaid } = req.body;
+  console.log("----------------------------------------------------");
+
+  console.log(date);
+  console.log(typeof date);
+  console.log("----------------------------------------------------");
 
   // Step 1: Check if the doctor exists
   const doctor = await Doctor.findById(doctorId);
@@ -100,5 +103,3 @@ exports.getAll = catchAsync(async (req, res, next) => {
     data,
   });
 });
-
-

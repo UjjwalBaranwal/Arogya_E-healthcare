@@ -11,7 +11,6 @@ function AppLayout() {
       <Sidebar />
       <main className="bg-grey-50  overflow-scroll">
         <div className="max-w-[120rem] mx-auto flex flex-col gap-8">
-          {/* this is the outlet */}
           <Outlet />
         </div>
       </main>

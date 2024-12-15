@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from "react";
+import BookAppointment from "./BookAppointment";
 
 function CardDoctor({ doctor }) {
   const {
@@ -12,8 +13,25 @@ function CardDoctor({ doctor }) {
     specialization,
     timing,
     website,
+    _id: doctorID,
   } = doctor;
-
+  console.log("doctor id for doctor name", name, doctorID);
+  const [appointmentOpen, setAppointmetnOpen] = useState(false);
+  function handleOpen() {
+    setAppointmetnOpen(() => true);
+  }
+  function handleClose() {
+    setAppointmetnOpen(() => false);
+  }
+  if (appointmentOpen)
+    return (
+      <BookAppointment
+        doctorId={doctorID}
+        handleClose={handleClose}
+        name={name}
+        consultationFee={consultationFee}
+      />
+    );
   return (
     <div className="flex flex-col md:flex-row items-start py-6 px-4 shadow-md rounded-lg bg-white transition-shadow duration-300 ease-in-out gap-4 hover:shadow-lg m-4 md:m-6">
       {/* Doctor Photo */}
@@ -29,7 +47,7 @@ function CardDoctor({ doctor }) {
       <div className="mt-2 md:mt-0 md:ml-4 flex-1 text-gray-800">
         <h2 className="text-lg font-bold mb-1">{name}</h2>
         <p className="text-xs font-semibold text-gray-600">{specialization}</p>
-        
+
         <div className="flex items-center mt-1 space-x-2 text-yellow-500">
           <span className="text-lg">⭐</span>
           <span className="text-sm font-medium">{ratingsAverage}</span>
@@ -48,7 +66,8 @@ function CardDoctor({ doctor }) {
           </p>
           {timing && (
             <p className="text-xs">
-              <span className="font-medium">Timing:</span> {timing.open} - {timing.close}
+              <span className="font-medium">Timing:</span> {timing.open} -{" "}
+              {timing.close}
             </p>
           )}
         </div>
@@ -65,7 +84,10 @@ function CardDoctor({ doctor }) {
               Visit Website
             </a>
           )}
-          <button className="p-1 bg-orange-500 text-white rounded-md shadow hover:bg-orange-600 transition-all duration-200 focus:outline-none focus:ring focus:ring-orange-300 text-xs">
+          <button
+            className="p-1 bg-orange-500 text-white rounded-md shadow hover:bg-orange-600 transition-all duration-200 focus:outline-none focus:ring focus:ring-orange-300 text-xs"
+            onClick={() => handleOpen()}
+          >
             Book Appointment
           </button>
         </div>
