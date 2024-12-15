@@ -97,3 +97,20 @@ nlu:
       - are you a human?
       - am I talking to a bot?
       - am I talking to a human?
+
+  - intent: report_symptom
+    examples: |
+      - I have stomach pain
+      - My stomach hurts
+      - I feel pain in my stomach
+      - I am experiencing stomach ache    
+  
+  - intent: fever_symptom
+    examples: |
+      - I have fever
+      - I am feeling low
+      - I am having fever 
+      - I am facing fever 
+      - Fever is ill
+
+  

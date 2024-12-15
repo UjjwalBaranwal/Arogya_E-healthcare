@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import "./Chatbot.css"; // Optional, you can create your own CSS for styling
 import { AiOutlineWechat } from "react-icons/ai";
+
 const Chatbot = () => {
   const [messages, setMessages] = useState([
     { sender: "bot", message: "Hello! How may I help you today?" },
@@ -13,9 +14,12 @@ const Chatbot = () => {
     if (inputMessage.trim() === "") return;
 
     const userMessage = { sender: "user", message: inputMessage };
-    setInputMessage(""); // Clear input field
+    
+    // Clear input field
+    setInputMessage(""); 
 
-    setMessages([...messages, userMessage]); // Update UI with the user's message
+    // Update UI with the user's message
+    setMessages((prevMessages) => [...prevMessages, userMessage]); 
 
     try {
       const response = await axios.post(
@@ -26,17 +30,18 @@ const Chatbot = () => {
         }
       );
 
-      const botResponses = await response.data.map((msg) => ({
+      const botResponses = response.data.map((msg) => ({
         sender: "bot",
         message: msg.text,
       }));
 
-      setMessages([...messages, userMessage, ...botResponses]); // Add bot response to the UI
+      // Update messages with both user and bot responses
+      setMessages((prevMessages) => [...prevMessages, ...botResponses]); 
     } catch (error) {
       console.error("Error sending message: ", error);
-      setMessages([
-        ...messages,
-        { sender: "bot", message: "Please connect to internet" },
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { sender: "bot", message: "Please connect to the internet." },
       ]); // Add bot response to the UI
     }
   };
@@ -50,56 +55,53 @@ const Chatbot = () => {
       handleSendMessage();
     }
   };
-  if (!isOpen) return <ChatButton isOpen={isOpen} setIsOpen={setIsOpen} />;
+
   return (
     <>
       <ChatButton isOpen={isOpen} setIsOpen={setIsOpen} />
-      <div className="fixed right-0.5 bottom-0.5 flex flex-col w-[400px] h-[400px] border-1  border-[#ccc] border-solid rounded-lg bg-[#f9f9f9] ">
-        <div className="flex-grow overflow-y-auto p-3 bg-[#fff] border-b border-[#ccc] border-solid">
-          {messages.map((msg, index) => (
-            <div
-              key={index}
-              className={`mx-1 my-2 p-4 border-solid border-[2px] max-w-[80%] rounded-xl ${
-                msg.sender === "user"
-                  ? "bg-[#e0e0e0] text-right self-end"
-                  : "bg-[#d1ecf1] self-start text-left"
-              }`}
-            >
-              <p>{msg.message}</p>
-            </div>
-          ))}
+      {isOpen && (
+        <div className="chat-container">
+          <div className="chat-header">
+            <h2>Arogya</h2>
+            <button onClick={() => setIsOpen(false)} className="close-button">X</button>
+          </div>
+          <div className="chat-messages">
+            {messages.map((msg, index) => (
+              <div key={index} className={`message ${msg.sender}`}>
+                <p>{msg.message}</p>
+              </div>
+            ))}
+          </div>
+          <div className="input-container">
+            <input
+              type="text"
+              placeholder="Type a message..."
+              value={inputMessage}
+              onChange={handleInputChange}
+              onKeyUp={handleKeyPress}
+              className="input-field"
+            />
+            <button onClick={handleSendMessage} className="send-button">
+              Send
+            </button>
+          </div>
         </div>
-
-        <div className="input-container flex p-4 bg-[#f1f1f1]">
-          <input
-            type="text"
-            placeholder="Type a message..."
-            value={inputMessage}
-            onChange={handleInputChange}
-            onKeyUp={handleKeyPress}
-            className="flex-grow p-4 border-[#ccc] rounded-md outline-none border-solid "
-          />
-          <button
-            onClick={handleSendMessage}
-            className="p-4 ml-3 border-solid border-2 border-red-500 bg-[#007bff] rounded-lg cursor-pointer text-[white] hover:bg-[#0056b3]"
-          >
-            Send
-          </button>
-        </div>
-      </div>
+      )}
     </>
   );
 };
+
 function ChatButton({ isOpen, setIsOpen }) {
   return (
     <button
       onClick={() => {
         setIsOpen(!isOpen);
       }}
-      className={`fixed right-5 ${isOpen ? "bottom-[25.5rem]  " : "bottom-3 "}`}
+      className={`chat-button ${isOpen ? "active" : ""}`}
     >
-      <AiOutlineWechat className="text-5xl" />
+      <AiOutlineWechat className="icon" />
     </button>
   );
 }
+
 export default Chatbot;

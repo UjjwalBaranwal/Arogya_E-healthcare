@@ -11,7 +11,7 @@ const LoginDropdown = () => {
     { name: "Doctor Login", to: "/doctorLogin" },
     { name: "Patient Login", to: "/login" },
     { name: "Admin Login", to: "/adminLogin" },
-    { name: "Insurance Login", to: "/insuranceLogin" },
+    { name: "Insurance Login", to: "/insuranceHome" },
   ];
 
   return (

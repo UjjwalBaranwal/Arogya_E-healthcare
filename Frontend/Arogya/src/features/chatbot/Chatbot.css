@@ -1,69 +1,62 @@
-.chatbot-container {
-  position: fixed;
-  right: 2px;
-  bottom: 2px;
-  display: flex;
-  flex-direction: column;
-  width: 400px;
-  height: 400px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  margin: 0 auto;
-  background-color: #f9f9f9;
-} 
+/* Chatbot.css */
 
-.chat-window {
-  flex-grow: 1;
-  overflow-y: auto;
-  padding: 10px;
-  background-color: #fff;
-  border-bottom: 1px solid #ccc;
+/* Chat Container */
+.chat-container {
+  @apply fixed right-5 bottom-5 w-96 h-96 bg-white rounded-lg shadow-lg flex flex-col;
 }
 
+/* Chat Header */
+.chat-header {
+  @apply bg-blue-600 text-white p-3 flex justify-between items-center rounded-t-lg;
+}
+
+/* Close Button */
+.close-button {
+  @apply bg-transparent border-none text-white text-lg cursor-pointer;
+}
+
+/* Messages Area */
+.chat-messages {
+  @apply flex-grow overflow-y-auto p-3;
+}
+
+/* Message Styles */
 .message {
-  margin: 5px 0;
-  padding: 10px;
-  border-radius: 10px;
-  max-width: 80%;
+  @apply my-2 p-3 rounded-lg max-w-[80%];
 }
 
 .message.user {
-  background-color: #e0e0e0;
-  align-self: flex-end;
-  text-align: right;
+  @apply bg-blue-100 text-right self-end;
 }
 
 .message.bot {
-  background-color: #d1ecf1;
-  align-self: flex-start;
-  text-align: left;
+  @apply bg-gray-200 text-left self-start;
 }
 
+/* Input Container */
 .input-container {
-  display: flex;
-  padding: 10px;
-  background-color: #f1f1f1;
+  @apply flex p-4 bg-gray-100 border-t border-gray-300;
 }
 
-input[type="text"] {
-  flex-grow: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  outline: none;
+/* Input Field */
+.input-field {
+  @apply flex-grow p-2 border border-gray-300 rounded-md outline-none;
 }
 
-button {
-  padding: 10px;
-
-  margin-left: 10px;
-  border: 2px solid red;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
+/* Send Button */
+.send-button {
+  @apply ml-3 p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200 cursor-pointer;
 }
 
-button:hover {
-  background-color: #0056b3;
+/* Chat Button */
+.chat-button {
+  @apply fixed right-5 bottom-3 bg-blue-600 text-white rounded-full p-3 hover:bg-blue-700 transition duration-200;
+}
+
+.chat-button.active {
+  @apply bottom-[25.5rem]; /* Adjust position when active */
+}
+
+.icon {
+  @apply text-3xl; /* Icon size */
 }

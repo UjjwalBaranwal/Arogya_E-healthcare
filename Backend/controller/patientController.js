@@ -96,3 +96,26 @@ exports.logout = catchAsync(async (req, res, next) => {
   });
 });
 
+
+
+exports.updatePatient = catchAsync(async (req, res, next) => {
+  const { id } = req.params; // Get the patient ID from the request parameters
+  const updates = req.body; // Get the updates from the request body
+  const patient = await Patient.findByIdAndUpdate(id, updates, {
+    new: true, // Return the updated document
+    runValidators: true, // Ensure that validators are run on the updated fields
+  });
+
+  if (!patient) {
+    return next(new AppError("No patient found with that ID", 404));
+  }
+  // Remove sensitive information if needed
+  patient.password = undefined; // Ensure password is not sent back
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      patient,
+    },
+  });
+});
