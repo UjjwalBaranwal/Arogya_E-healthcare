@@ -51,6 +51,10 @@ const medicalReportSchema = new mongoose.Schema({
     type: String,
     required: [true, "Every Report must name doctor name"],
   },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("MedicalReport", medicalReportSchema);

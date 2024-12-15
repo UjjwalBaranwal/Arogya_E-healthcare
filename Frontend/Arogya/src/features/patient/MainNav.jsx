@@ -36,16 +36,7 @@ function MainNav() {
       icon: <FiActivity className={iconStyle} />,
       label: "My Record",
     },
-    {
-      to: "patientAppointment",
-      icon: <MdOutlineLeaderboard className={iconStyle} />,
-      label: "View Past Appointment",
-    },
-    {
-      to: "settings",
-      icon: <FaNotesMedical className={iconStyle} />,
-      label: "Doctor's Notes",
-    },
+
     {
       to: "settings",
       icon: <AiTwotoneInsurance className={iconStyle} />,

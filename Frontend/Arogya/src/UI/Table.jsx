@@ -45,7 +45,7 @@ function Row({ children }) {
 }
 
 function Body({ data, render }) {
-  if (!data.length)
+  if (!data?.length)
     return (
       <p className="text-center text-gray-600 font-medium text-lg my-6">
         Currently no data

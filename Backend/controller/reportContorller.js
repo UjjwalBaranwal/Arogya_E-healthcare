@@ -44,7 +44,7 @@ exports.createMedicalReport = catchAsync(async (req, res, next) => {
 exports.getMedicalReportByPatient = catchAsync(async (req, res, next) => {
   const { patientId } = req.params;
 
-  const report = await MedicalReport.findOne({ patientId });
+  const report = await MedicalReport.find({ patientId });
 
   if (!report) {
     return next(new AppError("Medical report not found", 404)); // Use AppError
