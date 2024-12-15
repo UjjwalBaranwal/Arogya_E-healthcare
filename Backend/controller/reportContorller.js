@@ -1,101 +1,105 @@
-const Report = require("../models/reportModel");
-const express=require("express");
-const AppError = require("../utils/appError");
-const catchAsync=require("../utils/catchAsync");
-const { env } = require("process");
+const MedicalReport = require("../models/reportModel");
+const Patient = require("../models/patientModel");
+const Doctor = require("../models/doctorModel");
+const AppError = require("../utils/appError"); // Import AppError
+const catchAsync = require("../utils/catchAsync"); // Import catchAsync
 
+// Create a new medical report
+exports.createMedicalReport = catchAsync(async (req, res, next) => {
+  // console.log("this is request body", req.body);
 
-exports.createReport= catchAsync(async(req,res,next)=>{
-    const { issues, suggestions, medicalPrescription, patientId, doctorId } = req.body
-    const newReport= await Report.create({
-        issues,
-        suggestions,
-        medicalPrescription,
-        patientId,
-        doctorId,
-    })
-    res.status(201).json({
-        status: "success",
-        data: {
-            report: newReport,
-        },
-    });
-})
+  const { issues, suggestions, medicalPrescription, patientId, doctorId } =
+    req.body;
 
-exports.getAllReports = catchAsync(async (req, res, next) => {
-    const reportData = await Report.find({ patientId: req.params.id }); // Use find with query
+  // Validate patient and doctor existence
+  const patient = await Patient.findById(patientId);
+  const doctor = await Doctor.findById(doctorId);
 
-    if (!reportData || reportData.length === 0) { // Check if no reports found
-        return next(new AppError("No medical reports exist for this patient", 404));
-    }
+  if (!patient || !doctor) {
+    return next(new AppError("Patient or Doctor not found", 404)); // Use AppError for better error handling
+  }
+  const patientName = patient.name;
+  const doctorName = doctor.name;
 
-    res.status(200).json({
-        status: "success",
-        data: {
-            reports: reportData,
-        },
-    });
+  // Create a new medical report instance
+  const newReport = new MedicalReport({
+    issues,
+    suggestions,
+    medicalPrescription,
+    patientId,
+    doctorId,
+    patientName,
+    doctorName,
+  });
+
+  // Save the medical report to the database
+  await newReport.save();
+  res.status(201).json({
+    message: "Medical report created successfully",
+    report: newReport,
+  });
 });
 
+// Get medical report by patient ID
+exports.getMedicalReportByPatient = catchAsync(async (req, res, next) => {
+  const { patientId } = req.params;
 
-exports.getReportById = catchAsync(async (req, res, next) => {
-    const report = await Report.findById(req.params.id);
-    if (!report) {
-        return next(new AppError("No report found with that ID", 404));
-    }
-    res.status(200).json({
-        status: "success",
-        data: {
-            report,
-        },
-    });
+  const report = await MedicalReport.findOne({ patientId });
+
+  if (!report) {
+    return next(new AppError("Medical report not found", 404)); // Use AppError
+  }
+
+  res.status(200).json(report);
 });
 
+// Get medical report by doctor ID
+exports.getMedicalReportByDoctor = catchAsync(async (req, res, next) => {
+  const { doctorId } = req.params;
 
-exports.updateReport = catchAsync(async (req, res, next) => {
-    const { issues, suggestions, medicalPrescription } = req.body;
-    const updatedReport = await Report.findByIdAndUpdate(req.params.id, {
-        issues,
-        suggestions,
-        medicalPrescription,
-    }, { new: true });
+  const reports = await MedicalReport.find({ doctorId });
 
-    if (!updatedReport) {
-        return next(new AppError("No report found with that ID", 404));
-    }
+  if (reports.length === 0) {
+    return next(new AppError("No reports found for this doctor", 404)); // Use AppError
+  }
 
-    res.status(200).json({
-        status: "success",
-        data: {
-            report: updatedReport,
-        },
-    });
+  res.status(200).json(reports);
 });
 
+// Update an existing medical report
+exports.updateMedicalReport = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const { issues, suggestions, medicalPrescription } = req.body;
 
-exports.deleteReport = catchAsync(async (req, res, next) => {
-    const report = await Report.findByIdAndDelete(req.params.id);
-    if (!report) {
-        return next(new AppError("No report found with that ID", 404));
-    }
+  const report = await MedicalReport.findById(id);
 
-    res.status(204).json({
-        status: "success",
-        data: null,
-    });
+  if (!report) {
+    return next(new AppError("Medical report not found", 404)); // Use AppError
+  }
+
+  report.issues = issues || report.issues;
+  report.suggestions = suggestions || report.suggestions;
+  report.medicalPrescription =
+    medicalPrescription || report.medicalPrescription;
+
+  await report.save();
+  res.status(200).json({
+    message: "Medical report updated successfully",
+    report,
+  });
 });
 
+// Delete a medical report
+exports.deleteMedicalReport = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
 
-exports.getReportsByDoctor = catchAsync(async (req, res, next) => {
-    const reports = await Report.find({ doctorId: req.params.id });
-    if (!reports || reports.length === 0) {
-        return next(new AppError("No reports found for this doctor", 404));
-    }
-    
-    res.status(200).json({
-        status: "success",
-        data: {
-            reports,
-        },
-    });
+  const report = await MedicalReport.findByIdAndDelete(id);
+
+  if (!report) {
+    return next(new AppError("Medical report not found", 404)); // Use AppError
+  }
+
+  res.status(200).json({
+    message: "Medical report deleted successfully",
+  });
 });

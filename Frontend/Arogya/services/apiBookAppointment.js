@@ -1,12 +1,20 @@
 const URL = "http://127.0.0.1:3000/api/v1/appointment";
 
-export async function bookAppointment(doctorId, patientId, date) {
+export async function bookAppointment(
+  doctorId,
+  patientId,
+  date,
+  patientName,
+  isPriority
+) {
   try {
     // Create the request payload
     const payload = {
       doctorId,
       patientId,
       date,
+      patientName,
+      isPriority,
     };
     console.log("payload ", payload);
 
@@ -33,6 +41,25 @@ export async function bookAppointment(doctorId, patientId, date) {
     return responseData;
   } catch (error) {
     console.error("Error booking appointment:", error.message);
+    throw error;
+  }
+}
+
+export async function appointmentByDoctorID(id) {
+  try {
+    const res = await fetch(`${URL}/getAppointmentByDoctorID/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!res.ok) {
+      throw new Error(`Failed to fetch appointment. Status: ${res.status}`);
+    }
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching appointments:", error.message);
     throw error;
   }
 }

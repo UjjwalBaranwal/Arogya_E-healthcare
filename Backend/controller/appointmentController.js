@@ -4,7 +4,8 @@ const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 
 exports.bookAppointment = catchAsync(async (req, res, next) => {
-  const { doctorId, date, patientId, isPriority, moneyPaid } = req.body;
+  const { doctorId, date, patientId, isPriority, moneyPaid, patientName } =
+    req.body;
   console.log("----------------------------------------------------");
 
   console.log(date);
@@ -77,6 +78,7 @@ exports.bookAppointment = catchAsync(async (req, res, next) => {
     patientId,
     isPriority: isPriority || false, // Default to false if not provided
     moneyPaid: moneyPaid || false, // Default to false if not provided
+    patientName,
   });
 
   // Step 9: Increment the total number of patients
@@ -98,6 +100,16 @@ exports.bookAppointment = catchAsync(async (req, res, next) => {
 exports.getAll = catchAsync(async (req, res, next) => {
   const data = await Appointment.find();
   if (!data) return next(new AppError("No Appointment till now"));
+  res.status(201).json({
+    status: "success",
+    data,
+  });
+});
+
+exports.getByDoctorId = catchAsync(async (req, res, next) => {
+  const doctorId = req.params.id;
+  const data = await Appointment.find({ doctorId });
+  if (!data) return next(new AppError("No Appointment Found"));
   res.status(201).json({
     status: "success",
     data,

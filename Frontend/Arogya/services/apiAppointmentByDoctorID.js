@@ -1,3 +1,4 @@
+const URL = "http://127.0.0.1:3000/api/v1/appointment";
 export async function appointmentByDoctorID(id) {
   try {
     const res = await fetch(`${URL}/getAppointmentByDoctorID/${id}`, {

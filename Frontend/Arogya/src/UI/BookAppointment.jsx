@@ -12,7 +12,11 @@ function BookAppointment({
   const { user } = useSelector((state) => state.auth);
   const { _id: patientID, name: patientName } = user;
   const [date, setDate] = useState("");
-
+  const [isPriority, setIsPriority] = useState(false);
+  const handleCheckBoxChange = () => {
+    setIsPriority((p) => !p);
+  };
+  fee = isPriority ? fee + 200 : fee;
   console.log(date); // Debugging date value
   async function handleBookAppointment() {
     try {
@@ -20,7 +24,9 @@ function BookAppointment({
       const { responseData, error } = await bookAppointment(
         doctorId,
         patientID,
-        date
+        date,
+        patientName,
+        isPriority
       );
 
       // Check for errors and handle them
@@ -81,6 +87,18 @@ function BookAppointment({
         <div className="grid grid-cols-2 items-center mb-4">
           <span className="text-gray-600 font-medium">Fees to be paid:</span>
           <span className="text-gray-800 font-semibold">₹ {fee}</span>
+        </div>
+        {/* Fees */}
+        <div className="grid grid-cols-2 items-center mb-4">
+          <span className="text-gray-600 font-medium">
+            make priority (priority charge extra 200 rupee):
+          </span>
+          <input
+            type="checkbox"
+            checked={isPriority}
+            onChange={handleCheckBoxChange}
+          />
+          {/* {isPriority ? "check" : "no-checked"}  */}
         </div>
 
         {/* Book Appointment Button */}
