@@ -31,6 +31,8 @@ import AdminDashboard from "./features/Admin/AdminDashboard";
 import GetAllPatient from "./features/Admin/content/getPatient";
 import GetAllDoctors from "./features/Admin/content/getDoctor";
 import GetNotification from "./features/Admin/content/getNotification";
+import DoctorHome from "./features/doctors/content/doctorHome";
+import InsuranceHome from "./features/insurance/insuranceHome";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -56,6 +58,7 @@ function App() {
             <Route path="doctorLogin" element={<DoctorLogin />} />
             <Route path="doctorSignup" element={<DoctorSignup />} />
             <Route path="adminLogin" element={<AdminLogin />} />
+            <Route path="insuranceHome" element={<InsuranceHome/>}/>
             <Route
               path="patient"
               element={
@@ -82,6 +85,7 @@ function App() {
                 element={<Navigate to="doctorDashboard" replace />}
               />
               <Route path="doctorDashboard" element={<DoctorDashboard />} />
+              <Route path="doctorHome" element={<DoctorHome/>}/>
             </Route>
 
 

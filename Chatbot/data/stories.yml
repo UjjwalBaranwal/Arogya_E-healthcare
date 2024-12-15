@@ -28,3 +28,14 @@ stories:
   - action: utter_did_that_help
   - intent: deny
   - action: utter_goodbye
+
+- story: respond to stomach pain
+  steps:
+  - intent: report_symptom
+  - action: utter_stomach_pain  
+
+
+- story: respond to fever
+  steps:
+  - intent: fever_symptom
+  - action: utter_fever
