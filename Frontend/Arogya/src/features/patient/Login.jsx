@@ -45,6 +45,7 @@ const Login = () => {
         setError(data.message || "Login failed");
       }
     } catch (err) {
+      setIsLoading(false);
       setError("An error occurred. Please try again.");
       console.error(err);
       toast.error("Your email or password is incorrect.");
@@ -54,49 +55,48 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-row items-center justify-around min-h-screen p-6 bg-login-color text-black sm:p-10">
-      <div className="basis-2/5">
-        <img src={doctor} alt="Doctor" />
-        <h1 className="text-center text-2xl sm:text-3xl font-bold text-lightBlueGreen leading-tight ">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100">
+      <div className="flex flex-col items-center mb-6">
+        <img src={doctor} alt="Doctor" className="w-24 h-24 mb-2 rounded-full shadow-lg" />
+        <h1 className="text-center text-2xl font-bold text-gray-800 leading-tight">
           Welcome to Arogya
         </h1>
+        <span className="text-sm text-gray-600">
+          Don't have an account?{" "}
+          <a href="/signup" className="text-blue-500 hover:underline">Sign up</a>
+        </span>
       </div>
 
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col w-full max-w-sm bg-white p-6 rounded-lg shadow-md sm:max-w-md"
+        className="flex flex-col w-full max-w-xs bg-white p-8 rounded-lg shadow-lg sm:max-w-sm"
       >
-        <h1 className="text-xl text-center font-bold mb-6 sm:text-2xl md:text-3xl">
-          Sign In
-        </h1>
+        <h2 className="text-xl text-center font-bold mb-6 text-gray-800">Sign In</h2>
 
-        <label className="text-sm font-semibold mb-2 text-gray-700 sm:text-base">
-          Email
-        </label>
+        <label className="text-sm font-semibold mb-1 text-gray-700">Email</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-3 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
           placeholder="Enter your email"
+          required
         />
 
-        <label className="text-sm font-semibold mb-2 text-gray-700 sm:text-base">
-          Password
-        </label>
+        <label className="text-sm font-semibold mb-1 text-gray-700">Password</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-3 mb-6 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
           placeholder="Enter your password"
+          required
         />
-        
 
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full p-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 disabled:bg-gray-300"
+          className="w-full p-3 text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-200 disabled:bg-gray-300"
         >
           {isLoading ? "Logging in..." : "Login"}
         </button>

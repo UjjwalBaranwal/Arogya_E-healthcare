@@ -15,6 +15,7 @@ module.exports = {
         "back-record": "#f4f9fc",
         "login-color": "#79c2d0",
         "brand-600": "#1D4ED8",
+        'custom-sky-blue': '#00BFFF',
         // Add your custom color
       },
       padding: {

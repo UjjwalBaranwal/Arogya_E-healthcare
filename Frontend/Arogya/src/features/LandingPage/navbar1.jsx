@@ -7,7 +7,7 @@ import { MdOutlineWheelchairPickup } from "react-icons/md";
 import { FaRegWindowClose } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Popover, ArrowContainer } from "react-tiny-popover";
-
+import LoginDropdown from "./LoginDropdown";
 function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
@@ -56,9 +56,7 @@ function Navbar() {
           <Link to="/departments" className="font-medium hover:text-primary">
             Departments
           </Link>
-          <Link to="/login" className="font-medium hover:text-primary">
-            Login
-          </Link>
+          <LoginDropdown/>
           <Link to="/contact" className="font-medium hover:text-primary">
             Contact
           </Link>

@@ -434,3 +434,7 @@ function Model({onClose, actionBar, children}){
 
 export default Model;
 
+
+
+// this is the poster image of the signup page for the patient
+      // {/* <img src={loginPoster} className="hidden md:block w-1/4 h-auto rounded-lg shadow-lg" /> */}
