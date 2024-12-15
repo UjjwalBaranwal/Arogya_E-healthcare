@@ -25,7 +25,7 @@ function MainNav() {
   };
   const navItems = [
     {
-      to: "doctorHome",
+      to: "dashboard",
       icon: <HiOutlineHome className={iconStyle} />,
       label: "Home",
     },
