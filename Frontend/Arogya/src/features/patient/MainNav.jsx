@@ -57,7 +57,7 @@ function MainNav() {
       label: "Payment History",
     },
     {
-      to: "settings",
+      to: "patientSetting",
       icon: <HiOutlineCog6Tooth className={iconStyle} />,
       label: "Settings",
     },

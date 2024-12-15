@@ -4,7 +4,6 @@ const AppError = require("../utils/appError");
 const catchAsync=require("../utils/catchAsync");
 const { env } = require("process");
 
-
 exports.createReport= catchAsync(async(req,res,next)=>{
     const { issues, suggestions, medicalPrescription, patientId, doctorId } = req.body
     const newReport= await Report.create({

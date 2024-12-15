@@ -33,6 +33,7 @@ import GetAllDoctors from "./features/Admin/content/getDoctor";
 import GetNotification from "./features/Admin/content/getNotification";
 import Appointment from "./features/doctors/Appointment";
 import InsuranceHome from "./features/insurance/insuranceHome"
+import Settings from "./features/patient/contents/setting";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -66,6 +67,7 @@ function App() {
                 </PrivateRoute>
               }
             >
+              <Route path="patientSetting" element={<Settings/>}/>
               <Route path="patientAppointment" element={<PastAppointment />} />
               <Route index element={<Navigate to="dashboard" replace />} />
               <Route path="dashboard" element={<Dashboard />} />
