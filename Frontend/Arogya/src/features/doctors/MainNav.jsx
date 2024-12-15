@@ -30,9 +30,9 @@ function MainNav() {
       label: "Home",
     },
     {
-      to: "leaderboard",
+      to: "appointment",
       icon: <MdOutlineLeaderboard className={iconStyle} />,
-      label: "View Today Appointment",
+      label: "View Appointment",
     },
     {
       to: "settings",
@@ -44,14 +44,14 @@ function MainNav() {
       icon: <FaHistory className={iconStyle} />,
       label: "Patient History",
     },
-    {
-      to: "emergency_cases",
-      icon: <MdContactEmergency className={iconStyle} />,
-      label: "Emergency Cases",
-    },
+    // {
+    //   to: "emergency_cases",
+    //   icon: <MdContactEmergency className={iconStyle} />,
+    //   label: "Emergency Cases",
+    // },
     {
       to: "earning_summary",
-      icon: < GiCash className={iconStyle} />,
+      icon: <GiCash className={iconStyle} />,
       label: "Earning Summary",
     },
     {
@@ -60,7 +60,6 @@ function MainNav() {
       label: "Setting",
     },
   ];
-
 
   return (
     <nav>
