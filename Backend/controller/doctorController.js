@@ -89,10 +89,21 @@ exports.logout = (req, res) => {
 };
 
 exports.getAll = catchAsync(async (req, res, next) => {
-  const data = await Doctor.find();
+  const { specialization, sort, order } = req.query;
+  const filter = {};
+  if (specialization) {
+    filter.specialization = specialization;
+  }
+  const sortBy = {};
+  if (sort) {
+    sortBy[sort] = order === "desc" ? -1 : 1;
+  }
+  const data = await Doctor.find(filter).sort(sortBy);
+
   if (!data) return next(new AppError("No doctor is found"));
   res.status(200).json({
     status: "success",
+    length: data.length,
     data,
   });
 });

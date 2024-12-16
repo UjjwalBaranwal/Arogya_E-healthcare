@@ -1,8 +1,15 @@
 const URL = "http://127.0.0.1:3000/api/v1/";
 
-export async function getAllDoctor() {
+export async function getAllDoctor({ filter, sortBy }) {
   try {
-    const response = await fetch(`${URL}doctor/getAll`);
+    let query = `${URL}doctor/getAll/?`;
+    if (filter) {
+      query = `${query}${filter.field}=${filter.value}&`;
+    }
+    if (sortBy) {
+      query = `${query}sort=${sortBy.field}&order=${sortBy.direction}&`;
+    }
+    const response = await fetch(query);
     const data = await response.json();
 
     if (!response.ok) {
